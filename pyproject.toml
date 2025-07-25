@@ -1,0 +1,20 @@
+[project]
+name = "hackathon"
+version = "0.0.1"
+description = "hackathon project"
+dependencies = [
+    "flask",
+    "pytest",
+    "gunicorn",
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["hackathon"]
