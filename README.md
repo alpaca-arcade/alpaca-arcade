@@ -10,4 +10,4 @@
 6. (Optional) Initialize the database `flask --app hackathon init-db`. Note this will wipe the database contents.
 7. Start the server in debug mode: `flask --app hackathon run --debug`.
 
-The app is now running locally and available at [localhost](http://127.0.0.1:5000)
+The app is now running locally and available at [localhost](http://127.0.0.1:5000).
