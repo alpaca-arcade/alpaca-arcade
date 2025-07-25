@@ -1,5 +1,25 @@
 # Boot.dev Hackathon 2025
 
+## Project structure
+
+.
+├── hackathon
+│   ├── __init__.py
+│   ├── db.py
+│   ├── home.py
+│   ├── schema.sql
+│   ├── static
+│   │   └── styles.css
+│   └── templates
+│       ├── base.html
+│       └── home
+│           └── index.html
+├── instance
+│   └── hackathon.sqlite
+├── pyproject.toml
+├── README.md
+└── tests
+
 ## Local Development Server
 
 1. Clone the repository
