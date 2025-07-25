@@ -1,0 +1,37 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+    background-color: #000517;
+}
+
+main {
+	padding: 0 8px;
+}
+
+nav {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	background-color: lightgrey;
+	padding: 8px 8px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #111;
+
+nav ul {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+
+nav li {
+	list-style: none;
+}
+
