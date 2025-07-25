@@ -2,6 +2,7 @@
 
 ## Project structure
 
+```
 .
 ├── hackathon
 │   ├── __init__.py
@@ -19,6 +20,7 @@
 ├── pyproject.toml
 ├── README.md
 └── tests
+```
 
 ## Local Development Server
 
