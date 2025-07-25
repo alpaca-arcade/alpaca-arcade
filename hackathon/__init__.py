@@ -9,12 +9,12 @@ def create_app(test_config=None):
         app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
     )
     app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'hackathon.sqlite'),
+        SECRET_KEY="dev",
+        DATABASE=os.path.join(app.instance_path, "hackathon.sqlite"),
     )
 
     if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
+        app.config.from_pyfile("config.py", silent=True)
     else:
         app.config.from_mapping(test_config)
     try:
@@ -27,6 +27,9 @@ def create_app(test_config=None):
 
     from . import home
     app.register_blueprint(home.bp)
-    app.add_url_rule('/', endpoint='index')
+    app.add_url_rule("/", endpoint="index")
+
+    from . import play
+    app.register_blueprint(play.bp)
 
     return app

@@ -23,6 +23,7 @@ nav {
 nav a {
     text-decoration: none;
     color: #111;
+}
 
 nav ul {
 	display: flex;
@@ -35,3 +36,6 @@ nav li {
 	list-style: none;
 }
 
+h1, h2 {
+    color: #FFFFF0;
+}
