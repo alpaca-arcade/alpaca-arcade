@@ -7,7 +7,12 @@ bp = Blueprint("scores", __name__, url_prefix="/scores")
 
 @bp.route("/", methods=("GET",))
 def index():
-    scores = get_scores()
+    game = request.args.get("game", "")
+    error = None
+    if game not in ["minesweeper"]:
+        error = "invalid or missing game"
+        return error, 400
+    scores = get_scores(game)
     return scores
 
 
@@ -20,8 +25,16 @@ def new():
     return "ok"
 
 
-def get_scores():
-    scores = get_db().execute("SELECT * FROM scores").fetchall()
+def get_scores(game):
+    scores = get_db().execute("SELECT id, name, score FROM scores WHERE game = ?", (game,)).fetchall()
+    scores = [
+        {
+            "id": score["id"],
+            "name": score["name"],
+            "score": score["score"],
+        }
+        for score in scores
+    ]
     return scores
 
 

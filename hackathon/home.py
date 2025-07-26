@@ -7,5 +7,5 @@ bp = Blueprint("home", __name__)
 
 @bp.route("/")
 def index():
-    scores = get_scores()
-    return render_template("home/index.html", scores=scores)
+    minesweeper_scores = get_scores("minesweeper")
+    return render_template("home/index.html", minesweeper_scores=minesweeper_scores)

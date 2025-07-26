@@ -25,6 +25,13 @@ def init_db():
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf-8"))
 
+    initial_scores = []
+    initial_score = ["minesweeper", "AAA", 1000]
+    for i in range(20):
+        initial_scores.append(initial_score)
+
+    db.executemany("INSERT INTO scores (game, name, score) VALUES (?, ?, ?)", (initial_scores))
+    db.commit()
 
 @click.command("init-db")
 def init_db_command():
