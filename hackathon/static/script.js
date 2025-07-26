@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('minesweeper-grid');
   const playButton = document.getElementById("play-button");
   const difficultySelect = document.getElementById('difficulty');
-  let rows, cols, mines;
+  let rows, cols, mines, remainingBombs;
   let cells = [];
   let minePositions = new Set();
   let flags = new Set();
@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         mines = 40;
         break;
     }
+
+remainingBombs = mines;
+adjustBombCounter(0);
 
 grid.style.gridTemplateColumns = `repeat(${cols}, 40px)`;
 grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
@@ -149,11 +152,14 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
       flags.delete(pos);
       cell.textContent = '';
       cell.classList.remove('flagged');
+      adjustBombCounter(1);
     } else {
       // Add flag
+      if (remainingBombs == 0) return;
       flags.add(pos);
       cell.textContent = '🚩';
       cell.classList.add('flagged');
+      adjustBombCounter(-1);
     }
   }
 
@@ -197,6 +203,11 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
   
   function stopTimer() {
     clearInterval(timerInterval);
+  }
+
+  function adjustBombCounter(value){
+    remainingBombs += value;
+    document.getElementById("bomb-count").innerHTML = remainingBombs
   }
 
   function stopGame() {
