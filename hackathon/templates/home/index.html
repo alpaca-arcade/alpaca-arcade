@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+<script>const minesweeper_scores = {{ minesweeper_scores | tojson }}</script>
 <h2>home page</h2>
 <a href="{{ url_for("play.index") }}">Play</a>
 {% endblock %}
