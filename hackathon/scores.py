@@ -54,7 +54,7 @@ def get_scores(game, difficulty):
     scores = [
         {
             "name": score["name"],
-            "score": score["score"],
+            "time": score["score"],
         }
         for score in scores
     ]
