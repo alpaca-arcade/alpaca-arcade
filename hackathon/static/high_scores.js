@@ -35,7 +35,7 @@ function newHighScoreTable(difficulty, scores) {
         score_name.textContent = score.name;
         tbodyrow.appendChild(score_name);
         score_value = document.createElement("td");
-        score_value.textContent = score["score"];
+        score_value.textContent = score["time"];
         tbodyrow.appendChild(score_value);
         tbody.appendChild(tbodyrow);
     }
