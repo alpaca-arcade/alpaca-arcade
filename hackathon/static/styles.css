@@ -26,6 +26,18 @@ body {
   font-weight: bold;
 }
 
+nav a {
+    text-decoration: none;
+    color: #111;
+}
+
+nav ul {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+
 .cell.revealed {
   background-color: #374151;
 }
@@ -35,10 +47,15 @@ body {
   color: #facc15;
 }
 
+h1, h2 {
+    color: #FFFFF0;
+}
+
 .cell.mine {
   background-color: #dc2626;
   color: white;
 }
+
 minesweeper-grid {
   display: grid;
   gap: 2px; /* Tight spacing */

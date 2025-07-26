@@ -8,18 +8,28 @@
 │   ├── __init__.py
 │   ├── db.py
 │   ├── home.py
+│   ├── play.py
 │   ├── schema.sql
+│   ├── scores.py
 │   ├── static
 │   │   └── styles.css
 │   └── templates
 │       ├── base.html
-│       └── home
+│       ├── home
+│       │   └── index.html
+│       └── play
 │           └── index.html
 ├── instance
 │   └── hackathon.sqlite
 ├── pyproject.toml
 ├── README.md
 └── tests
+    ├── conftest.py
+    ├── test_db.py
+    ├── test_factory.py
+    ├── test_home.py
+    ├── test_play.py
+    └── test_scores.py
 ```
 
 ## Local Development Server

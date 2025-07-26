@@ -3,12 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>{% block title %}{% endblock %} - Hackathon</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+		<link rel="stylesheet" href="{{ url_for("static", filename="styles.css") }}">
+        {% block head %}{% block head %}
 	</head>
 	<body>
 		<header>
 			<nav>
-				<span><a href="{{ url_for('home.index') }}">Home</a></span>
+				<span><a href="{{ url_for("home.index") }}">Home</a></span>
             </nav>
 		</header>
 		<main>
