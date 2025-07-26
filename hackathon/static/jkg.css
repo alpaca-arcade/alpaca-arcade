@@ -1,0 +1,35 @@
+.play-button {
+    display: block;
+    padding: 80px 80px;
+    background: transparent;
+    text-decoration: none;
+    color: green;
+    border-radius: 50%;
+    box-shadow: 0px 0px 9px lightgreen;
+    border: 3px solid green;
+    margin-bottom: 15px;
+}
+
+.play-button:hover {
+    box-shadow: 0px 0px 9px white;
+    border-color: white;
+    color: white;
+}
+
+
+.play-button:active {
+    background: radial-gradient(circle at center, white 0, green 20%, transparent 100%);
+    box-shadow: 0px 0px 9px white;
+    color: white;
+    border: 3px inset green;
+}
+
+
+.play-button-label {
+    font-weight: 600;
+}
+
+.lit {
+    text-shadow: #fc0 1px 0 10px;
+}
+

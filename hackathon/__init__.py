@@ -1,5 +1,4 @@
 import os
-
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
