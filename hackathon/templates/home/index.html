@@ -5,16 +5,19 @@
 {% endblock %}
 
 {% block main %}
-<script>const minesweeper_scores_easy = {{ minesweeper_scores_easy | tojson }}</script>
-<script>const minesweeper_scores_medium = {{ minesweeper_scores_medium | tojson }}</script>
-<script>const minesweeper_scores_hard = {{ minesweeper_scores_hard | tojson }}</script>
+<script>const minesweeperScoresEasy = {{ minesweeper_scores_easy | tojson }}</script>
+<script>const minesweeperScoresMedium = {{ minesweeper_scores_medium | tojson }}</script>
+<script>const minesweeperScoresHard = {{ minesweeper_scores_hard | tojson }}</script>
 <div class="text-center gap-5 text-light bg-dark d-flex flex-column justify-content-center align-items-center min-vh-100">
     <h1 class="display-1">{% block title %}BOOTSWEEPER{% endblock %}</h1>
     <div>
         <a class="play-button" href="{{ url_for("play.index") }}"></a>
         <p class="fs-4 play-button-label lit">PLAY</p>
     </div>
-    <div class="high-scores"></div>
+    <div class="high-scores-container">
+        <h2>High Scores</h2>
+        <div class="d-flex gap-5 high-scores"></div>
+    </div>
 </div>
 
 
