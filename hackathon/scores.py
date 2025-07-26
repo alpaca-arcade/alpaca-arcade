@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from incontext.db import get_db
+from hackathon.db import get_db
 
 
 bp = Blueprint("scores", __name__, url_prefix="/scores")
