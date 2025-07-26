@@ -21,7 +21,7 @@ def new():
 
 
 def get_scores():
-    scores = get_db.execute("SELECT * FROM scores").fetchall()
+    scores = get_db().execute("SELECT * FROM scores").fetchall()
     return scores
 
 
