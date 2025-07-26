@@ -29,15 +29,16 @@ def new():
     error = None
     if game not in ["minesweeper"]:
         error = "invalid or missing game"
-        return error, 400
-    if difficulty not in [0, 1, 2]:
+    if difficulty not in ["0", "1", "2"]:
         error = "invalid or missing difficulty"
-        return error, 400
     if len(name) > 3 or not name.isalpha():
         error = "invalid name"
     name = name.upper()
-    if type(score) != int:
+    if not score.isdigit():
         error = "invalid score"
+    if error:
+        return error, 400
+    score = int(score)
     new_score = dict(game=game, difficulty=difficulty, name=name, score=score)
     score_saved = save_score(new_score)
     if score_saved:
@@ -68,7 +69,7 @@ def save_score(new_score):
         " AND difficulty = ?"
         " ORDER BY score DESC",
         (new_score["game"], new_score["difficulty"],)
-    )
+    ).fetchall()
     if len(high_scores) < 20:
         new_high_score(new_score)
         return True

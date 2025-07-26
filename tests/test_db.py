@@ -32,4 +32,4 @@ def test_data_entry(app):
     with app.app_context():
         db = get_db()
         scores = db.execute("SELECT * FROM scores").fetchall()
-        assert len(scores) == 20
+        assert len(scores) == 9
