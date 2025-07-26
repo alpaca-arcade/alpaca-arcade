@@ -1,27 +1,85 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('minesweeper-grid');
-  const playButton = document.getElementById("play-button");
-  const difficultySelect = document.getElementById('difficulty');
+  const playButton = document.getElementById('play-button');
+
+  let difficulty = "medium";
+  let isGameRunning = false;
+
   let rows, cols, mines, remainingBombs;
   let cells = [];
   let minePositions = new Set();
   let flags = new Set();
   let revealed = new Set();
-  let timerInterval;
-  let startTime;
-  let isGameRunning = false;
 
+  let timerInterval, startTime, timeElapsed;
+
+  function openModalById(id){
+    document.getElementById(id).showModal();
+  }
+
+  function closeModalById(id){
+    document.getElementById(id).close();
+  }
+
+  function openEndModalAsWinner(isWinner)
+  {
+    const modal = document.getElementById("end-game-modal");
+    modal.innerHTML = "";
+    let title = "";
+    let body = "";
+    let footer = '<button id="closeEGModal">Close</button>';
+    if (isWinner){
+      title = "CONGRATS! You won!"
+      
+      body = `
+      <label for="winnerName">please enter a name (3 chars max)
+      <input type="text" id="winnerName" maxlength="3" required />
+      </label>
+      `
+    } else {
+      title = "Too bad, you lost!";
+    }
+
+    modal.innerHTML = `
+    <h2>${title}</h2>
+    <p>time in seconds: ${timeElapsed}</p>
+    ${body}
+    ${footer}
+    `
+
+    modal.showModal();
+    document.getElementById("closeEGModal").addEventListener("click", () => {modal.close();});
+  }
+
+  document.querySelector("#difficultySelection button").addEventListener('click', () => {
+
+    let value = document.querySelector('input[name="difficulty"]:checked').value;
+    difficulty = "";
+    if (value === 'custom'){
+        const allInputs = document.querySelectorAll('#difficultySelection input[type="number"]');
+        // IF rows * columns < mines
+        let rowXColumn = parseInt(allInputs[0].value) * parseInt(allInputs[1].value)
+        if(rowXColumn < parseInt(allInputs[2].value)) {
+          alert(`Please stay within the max range! Max amount of mines with these settings are  ${rowXColumn}`);
+          return;
+        }
+    }
+      difficulty = value;
+      closeModalById('difficultySelection');
+      initGame();
+  });
 
   function initGame() {
 
     if (!isGameRunning) isGameRunning = true;
+
     grid.innerHTML = '';
     cells = [];
     minePositions.clear();
     flags.clear();
     revealed.clear();
 
-    switch (difficultySelect.value) {
+    switch (difficulty) {
       case 'easy':
         rows = 8;
         cols = 8;
@@ -38,9 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
         mines = 99;
         break;
       case 'custom':
-        rows = parseInt(document.querySelector("#rows-input").value);
-        cols = parseInt(document.querySelector("#cols-input").value);
-        mines = parseInt(document.querySelector("#mines-input").value);
+        const allInputs = document.querySelectorAll('#difficultySelection input[type="number"]');
+        rows = parseInt(allInputs[0].value);
+        cols = parseInt(allInputs[1].value);
+        mines = parseInt(allInputs[2].value);
         break;
       default:
         alert('Something went wrong, reverting to default difficulty!\nPlease contact a dev to look into this.');
@@ -116,9 +175,8 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
 
     if (minePositions.has(pos)) {
       cell.textContent = '💣';
-      alert('Game Over!');
       revealAllMines();
-      stopGame();
+      stopGame(false);
       return;
     }
 
@@ -142,6 +200,15 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
     checkWin();
   }
 
+  function revealAllMines() {
+    minePositions.forEach(pos => {
+      const [r, c] = pos.split(',').map(Number);
+      const cell = cells[r][c];
+      cell.textContent = '💣';
+      cell.classList.add('mine');
+    });
+  }
+
   function toggleFlag(r, c) {
     if (!isGameRunning) return;
     const pos = r + ',' + c;
@@ -163,24 +230,30 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
     }
   }
 
-  function revealAllMines() {
-    minePositions.forEach(pos => {
-      const [r, c] = pos.split(',').map(Number);
-      const cell = cells[r][c];
-      cell.textContent = '💣';
-      cell.classList.add('mine');
-    });
-  }
 
   function checkWin() {
     if (revealed.size === rows * cols - mines) {
       alert('You Win!');
       revealAllMines();
-      stopGame();
+      stopGame(true);
+
+      checkIfHighscore();
     }
   }
 
-  playButton.addEventListener('click', initGame)
+  function checkIfHighscore(){
+    // FETCH!
+    let lowestHighscore = fetch("/scores/?game=minesweeper&difficulty=2")
+    console.log(lowestHighscore);
+
+    if (timeElapsed < lowestHighscore) {
+      addToHighscores();
+    }
+  }
+
+  function addToHighscores(){}
+
+  playButton.addEventListener('click', () => {openModalById("difficultySelection")})
   initGame();
   
   function formatTime(seconds) {
@@ -198,6 +271,7 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
     timerInterval = setInterval(() => {
       const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
       document.getElementById("elapsed-time").textContent = formatTime(elapsedSeconds);
+      timeElapsed = elapsedSeconds;
     }, 1000);
   }
   
@@ -210,9 +284,10 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
     document.getElementById("bomb-count").innerHTML = remainingBombs
   }
 
-  function stopGame() {
+  function stopGame(isWinner) {
     stopTimer();
     isGameRunning = false;
+    openEndModalAsWinner(isWinner);
   }
   
 });
