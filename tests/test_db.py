@@ -28,3 +28,8 @@ def test_init_db_command(runner, monkeypatch):
     assert Recorder.called
 
 
+def test_data_entry(app):
+    with app.app_context():
+        db = get_db()
+        scores = db.execute("SELECT * FROM scores").fetchall()
+        assert len(scores) == 20
