@@ -29,7 +29,6 @@ def get_scores(game):
     scores = get_db().execute("SELECT id, name, score FROM scores WHERE game = ?", (game,)).fetchall()
     scores = [
         {
-            "id": score["id"],
             "name": score["name"],
             "score": score["score"],
         }
