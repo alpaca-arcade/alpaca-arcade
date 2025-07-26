@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('minesweeper-grid');
+  const playButton = document.getElementById("play-button");
   const difficultySelect = document.getElementById('difficulty');
   let rows, cols, mines;
   let cells = [];
@@ -8,28 +9,46 @@ document.addEventListener('DOMContentLoaded', () => {
   let revealed = new Set();
   let timerInterval;
   let startTime;
+  let isGameRunning = false;
 
 
   function initGame() {
+
+    if (!isGameRunning) isGameRunning = true;
     grid.innerHTML = '';
     cells = [];
     minePositions.clear();
     flags.clear();
     revealed.clear();
 
-    if (difficultySelect.value === 'easy') {
-  rows = 8;
-  cols = 8;
-  mines = 10;
-} else if (difficultySelect.value === 'medium') {
-  rows = 16;
-  cols = 16;
-  mines = 40;
-} else if (difficultySelect.value === 'hard') {
-  rows = 24;
-  cols = 24;
-  mines = 99;
-}
+    switch (difficultySelect.value) {
+      case 'easy':
+        rows = 8;
+        cols = 8;
+        mines = 10;
+        break;
+      case 'medium':
+        rows = 16;
+        cols = 16;
+        mines = 40;
+        break;
+      case 'hard':
+        rows = 24;
+        cols = 24;
+        mines = 99;
+        break;
+      case 'custom':
+        rows = parseInt(document.querySelector("#rows-input").value);
+        cols = parseInt(document.querySelector("#cols-input").value);
+        mines = parseInt(document.querySelector("#mines-input").value);
+        break;
+      default:
+        alert('Something went wrong, reverting to default difficulty!\nPlease contact a dev to look into this.');
+        rows = 16;
+        cols = 16;
+        mines = 40;
+        break;
+    }
 
 grid.style.gridTemplateColumns = `repeat(${cols}, 40px)`;
 grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
@@ -85,6 +104,7 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
   }
 
   function revealCell(r, c) {
+    if (!isGameRunning) return;
     const pos = r + ',' + c;
     if (flags.has(pos) || revealed.has(pos)) return;
     const cell = cells[r][c];
@@ -95,7 +115,7 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
       cell.textContent = '💣';
       alert('Game Over!');
       revealAllMines();
-      stopTimer(); // Stop the timer here
+      stopGame();
       return;
     }
 
@@ -120,6 +140,7 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
   }
 
   function toggleFlag(r, c) {
+    if (!isGameRunning) return;
     const pos = r + ',' + c;
     if (revealed.has(pos)) return;
     const cell = cells[r][c];
@@ -149,31 +170,38 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
     if (revealed.size === rows * cols - mines) {
       alert('You Win!');
       revealAllMines();
-      stopTimer(); // Stop the timer here
+      stopGame();
     }
   }
 
-  difficultySelect.addEventListener('change', initGame);
-
+  playButton.addEventListener('click', initGame)
   initGame();
+  
+  function formatTime(seconds) {
+    const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+    const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+    const secs = String(seconds % 60).padStart(2, '0');
+    return `${hrs}:${mins}:${secs}`;
+  }
+  
+  function startTimer() {
+    if (timerInterval) {
+      clearInterval(timerInterval); // reset if already running
+    }
+    startTime = Date.now();
+    timerInterval = setInterval(() => {
+      const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+      document.getElementById("elapsed-time").textContent = formatTime(elapsedSeconds);
+    }, 1000);
+  }
+  
+  function stopTimer() {
+    clearInterval(timerInterval);
+  }
+
+  function stopGame() {
+    stopTimer();
+    isGameRunning = false;
+  }
+  
 });
-
-function formatTime(seconds) {
-  const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
-  const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
-  const secs = String(seconds % 60).padStart(2, '0');
-  return `${hrs}:${mins}:${secs}`;
-}
-
-function startTimer() {
-  clearInterval(timerInterval); // reset if already running
-  startTime = Date.now();
-  timerInterval = setInterval(() => {
-    const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
-    document.getElementById("elapsed-time").textContent = formatTime(elapsedSeconds);
-  }, 1000);
-}
-
-function stopTimer() {
-  clearInterval(timerInterval);
-}
