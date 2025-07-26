@@ -25,8 +25,8 @@ def new():
     return "ok"
 
 
-def get_scores(game):
-    scores = get_db().execute("SELECT id, name, score FROM scores WHERE game = ?", (game,)).fetchall()
+def get_scores(game, difficulty):
+    scores = get_db().execute("SELECT id, name, score FROM scores WHERE game = ? AND difficulty = ?", (game, difficulty,)).fetchall()
     scores = [
         {
             "name": score["name"],

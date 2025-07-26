@@ -5,7 +5,7 @@ thead = document.createElement("thead");
 tbody = document.createElement("tbody");
 
 theadrow = document.createElement("tr");
-column_names = Object.keys(minesweeper_scores[0]);
+column_names = Object.keys(minesweeper_scores_easy[0]);
 for (column_name of column_names) {
     th = document.createElement("th");
     th.textContent = column_name;
@@ -13,14 +13,14 @@ for (column_name of column_names) {
 }
 thead.appendChild(theadrow);
 
-for (minesweeper_score of minesweeper_scores) {
+for (score of minesweeper_scores_easy) {
     tbodyrow = document.createElement("tr");
     score_name = document.createElement("td");
-    score_name.textContent = minesweeper_score.name;
+    score_name.textContent = score.name;
     tbodyrow.appendChild(score_name);
-    score = document.createElement("td");
-    score.textContent = minesweeper_score["score"];
-    tbodyrow.appendChild(score);
+    score_value = document.createElement("td");
+    score_value.textContent = score["score"];
+    tbodyrow.appendChild(score_value);
     tbody.appendChild(tbodyrow);
 }
 
