@@ -32,4 +32,7 @@ def create_app(test_config=None):
     from . import play
     app.register_blueprint(play.bp)
 
+    from .import scores
+    app.register_blueprint(scores.bp)
+
     return app
