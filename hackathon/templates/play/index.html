@@ -38,15 +38,17 @@
       <p class="text-muted mb-3">Set your own grid size and bomb count.</p>
       <div class="mb-3">
         <label class="form-label" for="rC">Rows</label>
+        <p id="row-count-error" class="mb-2 text-danger ghost">Required field for custom</p>
         <input id="rC" class="form-control" type="number" min="5" max="100">
       </div>
       <div class="mb-3">
         <label class="form-label" for="cC">Columns</label>
+        <p id="col-count-error" class="mb-2 text-danger ghost">Required field for custom</p>
         <input id="cC" class="form-control" type="number" min="5" max="100">
       </div>
       <div class="mb-4">
         <label class="form-label" for="bC">Mines</label>
-        <p id="bomb-count-error" class="mb-2 text-danger ghost">bomb count exceeds grid size</p>
+        <p id="bomb-count-error" class="mb-2 text-danger ghost"></p>
         <input id="bC" class="form-control" type="number" min="1">
       </div>
     </div>

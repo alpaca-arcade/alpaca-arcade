@@ -45,13 +45,47 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector("#difficultySelection button").addEventListener('click', (event) => {
     event.preventDefault();
     let value = document.querySelector('input[name="difficulty"]:checked').value;
+    let hasFailed = false;
     difficulty = "";
+
     if (value === 'custom'){
         const allInputs = document.querySelectorAll('#difficultySelection input[type="number"]');
+        allInputs.forEach((input) => {
+          if(!input.value){
+            switch (input.getAttribute("id")){
+              case "rC":
+                document.getElementById("row-count-error").classList.remove("ghost");
+                break;
+              case "cC":
+                document.getElementById("col-count-error").classList.remove("ghost");
+                break;
+              case "bC":
+                document.getElementById("bomb-count-error").classList.remove("ghost");
+                document.getElementById("bomb-count-error").innerHTML = "Required field for custom";
+                break;
+            }
+            hasFailed = true;
+          } else {
+            switch (input.getAttribute("id")){
+              case "rC":
+                document.getElementById("row-count-error").classList.add("ghost");
+                break;
+              case "cC":
+                document.getElementById("col-count-error").classList.add("ghost");
+                break;
+              case "bC":
+                document.getElementById("bomb-count-error").classList.add("ghost");
+                document.getElementById("bomb-count-error").innerHTML = "";
+                break;
+            }
+          }
+        })
+        if(hasFailed) { return; }
         // IF rows * columns < mines
         let rowXColumn = parseInt(allInputs[0].value) * parseInt(allInputs[1].value)
         if(rowXColumn < parseInt(allInputs[2].value)) {
           document.getElementById("bomb-count-error").classList.remove("ghost");
+          document.getElementById("bomb-count-error").innerHTML = `Bomb count exceeds grid, MAX: ${rowXColumn}`;
           return;
         }
     }
