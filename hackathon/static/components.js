@@ -16,6 +16,7 @@ export class GameWon extends HTMLElement {
                 break;
             case "custom":
                 this.gameDifficulty = 3;
+                break;
             default:
                 console.error("Something went wrong.");
         }
