@@ -302,6 +302,7 @@ function handleMineExplosion(r, c) {
 function handleSafeCell(r, c) {
     const count = countAdjacentMines(r, c);
     if (count > 0) {
+
         cells[r][c].textContent = count;
         cells[r][c].classList.add(`number-${count}`);
     } else {
@@ -316,7 +317,7 @@ function handleSafeCell(r, c) {
  * @param {number} c - Column index of the center cell
  */
 function revealAdjacentEmptyCells(r, c) {
-    for (let dr = -1; dr <= 1; dr++) {
+      for (let dr = -1; dr <= 1; dr++) {
         for (let dc = -1; dc <= 1; dc++) {
             const nr = r + dr;
             const nc = c + dc;
