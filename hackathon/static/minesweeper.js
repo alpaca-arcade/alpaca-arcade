@@ -272,7 +272,6 @@ document.querySelector("body").addEventListener("keydown", (event) => {
 
   function checkWin() {
     if (revealed.size === rows * cols - mines) {
-      alert('You Win!');
       revealAllMines();
       stopGame(true);
 
