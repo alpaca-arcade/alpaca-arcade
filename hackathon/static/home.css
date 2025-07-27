@@ -1,3 +1,26 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.hero {
+    height: 20vh;
+}
+
+.pay-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+}
+
+
 .play-button {
     display: block;
     padding: 80px 80px;
@@ -33,3 +56,15 @@
     text-shadow: #fc0 1px 0 10px;
 }
 
+.leaderboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 30vh;
+}
+
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
