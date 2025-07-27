@@ -14,6 +14,8 @@ export class GameWon extends HTMLElement {
             case "hard":
                 this.gameDifficulty =  2;
                 break;
+            case "custom":
+                this.gameDifficulty = 3;
             default:
                 console.error("Something went wrong.");
         }
@@ -29,12 +31,16 @@ export class GameWon extends HTMLElement {
         this.scoreDisplay = scoreDisplay;
         this.appendChild(scoreDisplay);
         const statusMessage = document.createElement("p");
-        statusMessage.textContent = "Checking high scores...";
         this.appendChild(statusMessage);
         this.statusMessage = statusMessage;
-        this.checkHighScores();
+        if (this.gameDifficulty == 3) {
+            this.addCloseButton("I <3 Bootsweeper!");
+        } else {
+            this.checkHighScores();
+        }
     }
     async checkHighScores() {
+        this.statusMessage.textContent = "Checking high scores...";
         const url = `/scores/?game=minesweeper&difficulty=${this.gameDifficulty}`;
         try {
             const response = await fetch(url);
