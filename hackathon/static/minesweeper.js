@@ -26,9 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openEndModalAsWinner(isWinner) {
     const modal = document.getElementById("end-game-modal");
-    modal.showModal();
+//    modal.showModal();
     if (isWinner) {
-      modal.appendChild(new GameWon(timeElapsed, difficulty));
+      //modal.appendChild(new GameWon(timeElapsed, difficulty));
+      document.body.appendChild(new GameWon(timeElapsed, difficulty, hcaptcha));
     } else {
       modal.appendChild(new GameOver());
     }

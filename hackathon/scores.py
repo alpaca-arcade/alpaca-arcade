@@ -29,23 +29,25 @@ def index():
 
 @bp.route("/new", methods=("POST",))
 def new():
-    game = request.form["game"]
-    difficulty = request.form["difficulty"]
-    name = request.form["name"]
-    score = request.form["score"]
+    game = request.json["game"]
+    difficulty = request.json["difficulty"]
+    name = request.json["name"]
+    score = request.json["score"]
     error = None
     if game not in ["minesweeper"]:
         error = "invalid or missing game"
-    if difficulty not in ["0", "1", "2"]:
+    if difficulty not in [0, 1, 2]:
         error = "invalid or missing difficulty"
     if len(name) > 3 or not name.isalpha():
         error = "invalid name"
     name = name.upper()
-    if not score.isdigit():
-        error = "invalid score"
-    hc_token = request.form["h-captcha-response"]
+    if type(score) != int:
+        if not score.isdigit():
+            error = "invalid score"
+    hc_token = request.json["h-captcha-response"]
     if hc_token is None:
         error = "Captcha token missing"
+    print(f"error: {error}")
     if error is None:
         data = {
             "secret": hcap_secret,
@@ -63,8 +65,9 @@ def new():
             if score_saved:
                 return jsonify({"saved": True})
             return jsonify({"saved": False})
+        return jsonify({'success': False, 'message': 'Captcha failed'}), 403
 
-    flash(error)
+    return jsonify({'success': False, 'message': 'invalid data'}), 400
 
 
 def get_scores(game, difficulty):

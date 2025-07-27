@@ -1,6 +1,7 @@
 export class GameWon extends HTMLElement {
-    constructor(score, difficulty) {
+    constructor(score, difficulty, hcaptcha) {
         super()
+        this.game = "minesweeper";
         this.gameScore = score;
 		switch (difficulty) {
 			case "easy":
@@ -15,6 +16,7 @@ export class GameWon extends HTMLElement {
             default:
                 console.error("Something went wrong.");
         }
+        this.hcaptcha = hcaptcha;
     }
     connectedCallback() {
         const header = document.createElement("h2");
@@ -36,13 +38,15 @@ export class GameWon extends HTMLElement {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         }
+        console.log(options);
         try {
             const response = await fetch(resource, options);
             if (!response.ok) {
                 throw new Error(`HTTP error: ${response.status}`);
             }
             const json = await response.json();
-            this.updateDisplay(payload, json);
+            console.log(json);
+            // this.updateDisplay(payload, json);
         }
         catch (error) {
             console.error(`Fetch problem: ${error.message}`);
@@ -87,9 +91,16 @@ function newHighScore(gameWon) {
     input.name = "name";
     form.appendChild(input);
     const captcha = document.createElement("div");
-    captcha.classList.add("h-captcha");
-    captcha.setAttribute("data-sitekey", "ce7c55e8-26d2-4b54-a2d6-17acaf588408"); 
+	captcha.setAttribute("id", "captcha");
     form.appendChild(captcha);
+    gameWon.hcaptcha.render("captcha", // string: ID of target div to render into
+      {
+        "sitekey": "ce7c55e8-26d2-4b54-a2d6-17acaf588408",
+        "theme": "dark", // (for example)
+      }
+    );
+    const linebreak = document.createElement("br");
+    form.appendChild(linebreak);
     const submit = document.createElement("input");
     submit.type = "submit";
     submit.value = "submit";
@@ -104,8 +115,11 @@ function newHighScore(gameWon) {
         payload["game"] = gameWon.game;
         payload["difficulty"] = gameWon.gameDifficulty;
         payload["score"] = gameWon.gameScore;
-        payload["name"] = event.formData.entries()[0][1];
-        validName = validateName(payload["name"]) 
+        for (const entry of event.formData.entries()) {
+            payload[entry[0]] = entry[1];
+        }
+        // validName = validateName(payload["name"]) 
+        const validName = true;
         if (validName) {
             gameWon.sendScore(payload);
         }
