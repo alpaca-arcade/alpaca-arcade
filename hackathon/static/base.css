@@ -7,129 +7,16 @@
 
 }
 
+* {
+        box-sizing: border-box;
+}
+
 .neon-border {
     border: var(--border-thick) solid var(--theme-light);
     box-shadow: 0 0 5px var(--theme-light);
 }
 
-
-
-* {
-	box-sizing: border-box;
-}
-
 body {
-	margin: 0;
+        margin: 0;
     background-color: #000517;
-}
-
-.board {
-  display: grid;
-  gap: 2px;
-  margin-top: 20px;
-  background: linear-gradient(var(--theme-light) 5%, transparent 20%), linear-gradient(var(--theme-light) 5%, transparent 20%), linear-gradient(var(--theme-light) 5%, transparent 20%);
-  /* padding: 10px; */
-}
-
-.cell {
-  width: 32px;
-  height: 32px;
-  background-color: transparent;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #1f2937;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-nav a {
-    text-decoration: none;
-    color: #111;
-}
-
-nav ul {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 10px;
-}
-
-.cell.revealed {
-  background-color: #374151;
-}
-
-.cell.flagged {
-  background-color: #1f2937;
-  color: #facc15;
-}
-
-h1, h2 {
-    color: #FFFFF0;
-}
-
-.cell.mine {
-  background-color: #dc2626;
-  color: white;
-}
-
-minesweeper-grid {
-  display: grid;
-  gap: 2px; /* Tight spacing */
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.cell {
-  width: 40px;
-  height: 40px;
-  background-color: #121212;
-  border: 1px solid #444;
-  text-align: center;
-  line-height: 40px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: white;
-}
-
-.ghost {
-    display: none;
-}
-
-.game-btn {
-  font-weight: 600;
-  border-radius: 50px;
-  padding: 10px 20px;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  transition: all 0.2s ease-in-out;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.game-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-}
-
-/* Specific colors */
-.new-game {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.new-game:hover {
-  background-color: #45a049;
-}
-
-.restart-game {
-  background-color: #FFC107;
-  color: #333;
-}
-
-.restart-game:hover {
-  background-color: #e6ac00;
 }
