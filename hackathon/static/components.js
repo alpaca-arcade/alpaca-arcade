@@ -1,6 +1,5 @@
 export class GameWon extends HTMLElement {
     constructor(score, difficulty, hcaptcha) {
-        console.log(`hcaptcha: ${hcaptcha}`);
         super()
         this.game = "minesweeper";
         this.gameScore = score;
@@ -16,6 +15,7 @@ export class GameWon extends HTMLElement {
                 break;
             case "custom":
                 this.gameDifficulty = 3;
+                break;
             default:
                 console.error("Something went wrong.");
         }
@@ -48,7 +48,7 @@ export class GameWon extends HTMLElement {
                 throw new Error(`Response status: ${response.status}`);
             }
             const scores = await response.json();
-            scores.sort((a, b) => a.value - b.value);
+            scores.sort((a, b) => a.time - b.time);
             const longest = scores.at(-1).time;
             console.log(`longest: ${longest}`);
             console.log(`score: ${this.gameScore}`);
@@ -105,6 +105,7 @@ export class GameWon extends HTMLElement {
             payload["difficulty"] = this.gameDifficulty;
             payload["score"] = this.gameScore;
             for (const entry of event.formData.entries()) {
+                console.log("here");
                 payload[entry[0]] = entry[1];
             }
             const validName = /^[A-Za-z]{3}$/.test(payload["name"]);
