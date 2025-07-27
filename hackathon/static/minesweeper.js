@@ -2,7 +2,7 @@ import { GameWon, GameOver } from "/static/components.js"
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.getElementById('minesweeper-grid');
+  const grid = document.querySelector('.board');
   const playButton = document.getElementById('play-button');
 
   let difficulty = "medium";
@@ -210,8 +210,9 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
 
     const count = countAdjacentMines(r, c);
     if (count > 0) {
-      cell.textContent = count;
-    } else {
+    cell.textContent = count;
+    cell.classList.add(`number-${count}`);
+} else {
       for (let dr = -1; dr <= 1; dr++) {
         for (let dc = -1; dc <= 1; dc++) {
           const nr = r + dr;
@@ -223,6 +224,7 @@ grid.style.gridTemplateRows = `repeat(${rows}, 40px)`;
           }
         }
       }
+      
     }
 
     checkWin();
