@@ -27,8 +27,10 @@ def init_db():
         db.executescript(f.read().decode("utf-8"))
 
     minesweeper_scores = current_app.config["MINESWEEPER_SCORES"]
-    db.executemany("INSERT INTO scores (game, difficulty, name, score) VALUES ('minesweeper', ?, ?, ?)", (minesweeper_scores))
-    db.commit()
+    if minesweeper_scores is not None:
+        db.executemany("INSERT INTO scores (game, difficulty, name, score) VALUES ('minesweeper', ?, ?, ?)", (minesweeper_scores))
+        db.commit()
+
 
 @click.command("init-db")
 def init_db_command():
@@ -40,3 +42,4 @@ def init_db_command():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+
