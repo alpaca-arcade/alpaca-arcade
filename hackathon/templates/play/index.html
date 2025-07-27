@@ -17,15 +17,17 @@
     <div class="form-check mb-3">
       <input class="form-check-input" type="radio" name="difficulty" value="easy" id="easy">
       <label class="form-check-label" for="easy">Easy</label>
-      <p class="text-muted mb-3">8x8 grid, 10 bombs</p>
+      <p class="text-muted mb-3 ghost" data-difficulty="easy">8x8 grid, 10 bombs</p>
     </div>
     <div class="form-check mb-3">
       <input class="form-check-input" type="radio" name="difficulty" value="medium" id="medium" checked>
       <label class="form-check-label" for="medium">Medium</label>
+      <p class="text-muted mb-3" data-difficulty="medium">16x16 grid, 40 bombs</p>
     </div>
     <div class="form-check mb-3">
       <input class="form-check-input" type="radio" name="difficulty" value="hard" id="hard">
       <label class="form-check-label" for="hard">Hard</label>
+      <p class="text-muted mb-3 ghost" data-difficulty="hard">24x24 grid, 99 bombs</p>
     </div>
     <div class="form-check mb-3">
       <input class="form-check-input" type="radio" name="difficulty" value="custom" id="custom">
@@ -44,6 +46,7 @@
       </div>
       <div class="mb-4">
         <label class="form-label" for="bC">Mines</label>
+        <p id="bomb-count-error" class="mb-2 text-danger ghost">bomb count exceeds grid size</p>
         <input id="bC" class="form-control" type="number" min="1">
       </div>
     </div>
@@ -92,5 +95,4 @@
   <!-- Game Logic -->
   <script src="{{ url_for('static', filename='minesweeper.js') }}" type="module"></script>
 </div>
-<!-- <div class="h-captcha ghost" data-sitekey="ce7c55e8-26d2-4b54-a2d6-17acaf588408"></div> -->
 {% endblock %}

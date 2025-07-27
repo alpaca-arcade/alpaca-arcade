@@ -29,38 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.showModal();
     if (isWinner) {
     modal.appendChild(new GameWon(timeElapsed, difficulty, hcaptcha));
-    //  document.body.appendChild(new GameWon(timeElapsed, difficulty, hcaptcha));
     } else {
       modal.appendChild(new GameOver());
     }
-//    modal.innerHTML = "";
-//    let title = "";
-//    let body = "";
-//    let footer = '<button id="closeEGModal">Close</button>';
-//    if (isWinner){
-//      title = "CONGRATS! You won!"
-//      
-//      body = `<hs-form></hs-form>
-//      <label for="winnerName">please enter a name (3 chars max)
-//      <input type="text" id="winnerName" maxlength="3" required />
-//      </label>
-//      `
-//    } else {
-//      title = "Too bad, you lost!";
-//    }
-// 
-//     modal.innerHTML = `
-//     <h2>${title}</h2>
-//     <p>time in seconds: ${timeElapsed}</p>
-//     ${body}
-//     ${footer}
-//     `
-
-    //document.getElementById("closeEGModal").addEventListener("click", () => {modal.close();});
   }
 
-  document.querySelector("#difficultySelection button").addEventListener('click', () => {
+  const gridInfoDifficultyModal = document.querySelectorAll("[data-difficulty]")
+  const allDifficultyRadios = document.querySelectorAll('#difficultySelection input[type="radio"]');
+  allDifficultyRadios.forEach((el) => {el.addEventListener("click", () => {
+    gridInfoDifficultyModal.forEach((elem) => elem.classList.add("ghost"));
+    if(el.value == "custom") { return; }
+          document.querySelector(`[data-difficulty="${el.value}"]`).classList.remove("ghost");
+  })})
 
+  document.querySelector("#difficultySelection button").addEventListener('click', (event) => {
+    event.preventDefault();
     let value = document.querySelector('input[name="difficulty"]:checked').value;
     difficulty = "";
     if (value === 'custom'){
@@ -68,11 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // IF rows * columns < mines
         let rowXColumn = parseInt(allInputs[0].value) * parseInt(allInputs[1].value)
         if(rowXColumn < parseInt(allInputs[2].value)) {
-          alert(`Please stay within the max range! Max amount of mines with these settings are  ${rowXColumn}`);
+          document.getElementById("bomb-count-error").classList.remove("ghost");
           return;
         }
     }
       difficulty = value;
+      document.getElementById("bomb-count-error").classList.add("ghost");
       closeModalById('difficultySelection');
       initGame();
   });
