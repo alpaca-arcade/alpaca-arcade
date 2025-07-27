@@ -1,5 +1,6 @@
 export class GameWon extends HTMLElement {
     constructor(score, difficulty, hcaptcha) {
+        console.log(`hcaptcha: ${hcaptcha}`);
         super()
         this.game = "minesweeper";
         this.gameScore = score;
@@ -29,7 +30,80 @@ export class GameWon extends HTMLElement {
         statusMessage.textContent = "Checking high scores...";
         this.appendChild(statusMessage);
         this.statusMessage = statusMessage;
-        checkHighScores(this);
+        this.checkHighScores();
+    }
+    async checkHighScores() {
+        const url = `/scores/?game=minesweeper&difficulty=${this.gameDifficulty}`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+            const scores = await response.json();
+            scores.sort((a, b) => a.value - b.value);
+            const longest = scores.at(-1).time;
+            console.log(`longest: ${longest}`);
+            console.log(`score: ${this.gameScore}`);
+            if (this.gameScore < longest) {
+                this.statusMessage.textContent = "NEW HIGH SCORE";
+                this.newHighScore();
+            } else {
+                this.gameOver();
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    newHighScore() {
+        const form = document.createElement("form");
+        this.highScoreForm = form;
+        const label = document.createElement("label");
+        label.textContent = "Enter a 3-letter name:";
+        label.setAttribute("for", "name");
+        form.appendChild(label);
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = "name";
+        input.name = "name";
+        form.appendChild(input);
+        const hcaptchaDiv = document.createElement("div");
+        hcaptchaDiv.setAttribute("id", "hcaptcha");
+        form.appendChild(hcaptchaDiv);
+        const linebreak = document.createElement("br");
+        form.appendChild(linebreak);
+        const submit = document.createElement("input");
+        submit.type = "submit";
+        submit.value = "submit";
+        form.appendChild(submit);
+        this.appendChild(form);
+        this.hcaptcha.render(
+            "hcaptcha",
+            {
+                sitekey: "ce7c55e8-26d2-4b54-a2d6-17acaf588408",
+                theme: "dark",
+            }
+        );
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            new FormData(form);
+        });
+        form.addEventListener("formdata", (event) => {
+            const payload = new Object();
+            payload["game"] = this.game;
+            payload["difficulty"] = this.gameDifficulty;
+            payload["score"] = this.gameScore;
+            for (const entry of event.formData.entries()) {
+                payload[entry[0]] = entry[1];
+            }
+            // validName = validateName(payload["name"]) 
+            const validName = true;
+            if (validName) {
+                this.sendScore(payload);
+            }
+            else {
+                this.statusMessage.textContent = "Name must be three letters."
+            }
+        });
     }
     async sendScore(payload) {
         const resource = "/scores/new";
@@ -52,83 +126,11 @@ export class GameWon extends HTMLElement {
             console.error(`Fetch problem: ${error.message}`);
         }
     }
-}
-customElements.define("game-won", GameWon);
-
-
-async function checkHighScores(gameWon) {
-	const url = `/scores/?game=minesweeper&difficulty=${gameWon.gameDifficulty}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        const scores = await response.json();
-        scores.sort((a, b) => a.value - b.value);
-        const longest = scores.at(-1).score;
-        if (gameWon.gameScore < longest) {
-            gameWon.statusMessage.textContent = "NEW HIGH SCORE";
-            newHighScore(gameWon);
-        } else {
-            gameOver(gameWon);
-        }
-    } catch (error) {
-        console.error(error.message);
+    gameOver() {
+        console.log("game over");
     }
 }
-
-
-function newHighScore(gameWon) {
-    const form = document.createElement("form");
-    gameWon.highScoreForm = form;
-    const label = document.createElement("label");
-    label.textContent = "Enter a 3-letter name:";
-    label.setAttribute("for", "name");
-    form.appendChild(label);
-    const input = document.createElement("input");
-    input.type = "text";
-    input.id = "name";
-    input.name = "name";
-    form.appendChild(input);
-    const captcha = document.createElement("div");
-	captcha.setAttribute("id", "captcha");
-    form.appendChild(captcha);
-    gameWon.hcaptcha.render("captcha", // string: ID of target div to render into
-      {
-        "sitekey": "ce7c55e8-26d2-4b54-a2d6-17acaf588408",
-        "theme": "dark", // (for example)
-      }
-    );
-    const linebreak = document.createElement("br");
-    form.appendChild(linebreak);
-    const submit = document.createElement("input");
-    submit.type = "submit";
-    submit.value = "submit";
-    form.appendChild(submit);
-    gameWon.appendChild(form);
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        new FormData(form);
-    });
-    form.addEventListener("formdata", (event) => {
-        const payload = new Object();
-        payload["game"] = gameWon.game;
-        payload["difficulty"] = gameWon.gameDifficulty;
-        payload["score"] = gameWon.gameScore;
-        for (const entry of event.formData.entries()) {
-            payload[entry[0]] = entry[1];
-        }
-        // validName = validateName(payload["name"]) 
-        const validName = true;
-        if (validName) {
-            gameWon.sendScore(payload);
-        }
-        else {
-            gameWon.statusMessage.textContent = "Name must be three letters."
-        }
-    });
-}
-
+customElements.define("game-won", GameWon);
 
 
 export class GameOver extends HTMLElement {
