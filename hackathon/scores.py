@@ -1,5 +1,12 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, flash
 from hackathon.db import get_db
+import requests
+import os
+
+
+hcap_sitekey = "ce7c55e8-26d2-4b54-a2d6-17acaf588408"
+hcap_secret = os.environ.get("HCAPTCHA_SECRET")
+hcap_verify_url = "https://api.hcaptcha.com/siteverify"
 
 
 bp = Blueprint("scores", __name__, url_prefix="/scores")
@@ -17,33 +24,50 @@ def index():
     if error:
         return error, 400
     scores = get_scores(game, int(difficulty))
-    return scores
+    return jsonify(scores)
 
 
 @bp.route("/new", methods=("POST",))
 def new():
-    game = request.form["game"]
-    difficulty = request.form["difficulty"]
-    name = request.form["name"]
-    score = request.form["score"]
+    game = request.json["game"]
+    difficulty = request.json["difficulty"]
+    name = request.json["name"]
+    score = request.json["score"]
     error = None
     if game not in ["minesweeper"]:
         error = "invalid or missing game"
-    if difficulty not in ["0", "1", "2"]:
+    if difficulty not in [0, 1, 2]:
         error = "invalid or missing difficulty"
     if len(name) > 3 or not name.isalpha():
         error = "invalid name"
     name = name.upper()
-    if not score.isdigit():
-        error = "invalid score"
-    if error:
-        return error, 400
-    score = int(score)
-    new_score = dict(game=game, difficulty=difficulty, name=name, score=score)
-    score_saved = save_score(new_score)
-    if score_saved:
-        return {"saved": True}
-    return {"saved": False}
+    if type(score) != int:
+        if not score.isdigit():
+            error = "invalid score"
+    hc_token = request.json["h-captcha-response"]
+    if hc_token is None:
+        error = "Captcha token missing"
+    print(f"error: {error}")
+    if error is None:
+        data = {
+            "secret": hcap_secret,
+            "response":hc_token,
+            "remoteip": request.remote_addr,
+        }
+        response = requests.post(url=hcap_verify_url, data=data)
+        result = response.json()
+        if not result.get("success"):
+            error = "Captcha failed"
+        if error is None:
+            score = int(score)
+            new_score = dict(game=game, difficulty=difficulty, name=name, score=score)
+            score_saved = save_score(new_score)
+            if score_saved:
+                return jsonify({"saved": True})
+            return jsonify({"saved": False})
+        return jsonify({'success': False, 'message': 'Captcha failed'}), 403
+
+    return jsonify({'success': False, 'message': 'invalid data'}), 400
 
 
 def get_scores(game, difficulty):
