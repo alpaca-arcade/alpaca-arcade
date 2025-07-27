@@ -130,6 +130,15 @@ export class GameWon extends HTMLElement {
     updateDisplay(payload, json) {
         this.statusMessage.textContent = "Your score was saved!";
         this.highScoreForm.remove();
+        const closeButton = document.createElement("button");
+        closeButton.textContent = "Awesome!";
+        closeButton.type = "button";
+        closeButton.classList.add("btn");
+        closeButton.classList.add("btn-dark");
+        closeButton.addEventListener("click", (event) => {
+            document.querySelector("#end-game-modal").close();
+        });
+        this.appendChild(closeButton);
     }
     notHighScore() {
         this.statusMessage.textContent = "You didn't get a high score.";
