@@ -294,6 +294,12 @@ document.querySelector("body").addEventListener("keydown", (event) => {
 
   playButton.addEventListener('click', () => {openModalById("difficultySelection")})
   initGame();
+
+  const restartButton = document.getElementById("restart-button"); // Add restart button functionality
+  // Restart button should reset the game without changing difficulty
+  restartButton.addEventListener('click', () => {
+  initGame();
+});
   
   function formatTime(seconds) {
     const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
