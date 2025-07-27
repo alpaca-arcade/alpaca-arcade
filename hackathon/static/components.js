@@ -1,6 +1,5 @@
 export class GameWon extends HTMLElement {
     constructor(score, difficulty, hcaptcha) {
-        console.log(`hcaptcha: ${hcaptcha}`);
         super()
         this.game = "minesweeper";
         this.gameScore = score;
@@ -106,6 +105,7 @@ export class GameWon extends HTMLElement {
             payload["difficulty"] = this.gameDifficulty;
             payload["score"] = this.gameScore;
             for (const entry of event.formData.entries()) {
+                console.log("here");
                 payload[entry[0]] = entry[1];
             }
             const validName = /^[A-Za-z]{3}$/.test(payload["name"]);
