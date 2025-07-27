@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for("static", filename = "jkg.css") }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='jkg.css') }}">
 {% endblock %}
 
 {% block main %}
-<script>const minesweeperScoresEasy = {{ minesweeper_scores_easy | tojson }}</script>
-<script>const minesweeperScoresMedium = {{ minesweeper_scores_medium | tojson }}</script>
-<script>const minesweeperScoresHard = {{ minesweeper_scores_hard | tojson }}</script>
+<script>const minesweeperScoresEasy = "{{ minesweeper_scores_easy | tojson }}";</script>
+<script>const minesweeperScoresMedium = "{{ minesweeper_scores_medium | tojson }}";</script>
+<script>const minesweeperScoresHard = "{{ minesweeper_scores_hard | tojson }}";</script>
 <div class="text-center gap-5 text-light bg-dark d-flex flex-column justify-content-center align-items-center min-vh-100">
     <h1 class="display-1">{% block title %}BOOTSWEEPER{% endblock %}</h1>
     <div>
-        <a class="play-button" href="{{ url_for("play.index") }}"></a>
+        <a class="play-button" href="{{ url_for('play.index') }}"></a>
         <p class="fs-4 play-button-label lit">PLAY</p>
     </div>
     <div class="high-scores-container">
@@ -21,6 +21,6 @@
 </div>
 
 
-<script src="{{ url_for("static", filename="high_scores.js") }}"></script>
+<script src="{{ url_for('static', filename='high_scores.js') }}"></script>
     
 {% endblock %}

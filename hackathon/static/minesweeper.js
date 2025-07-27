@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </label>
       `
     } else {
-      title = "Too bad, you lost!";
+      title = "Better luck next time!";
     }
 
     modal.innerHTML = `
