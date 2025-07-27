@@ -52,3 +52,6 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
+console.log("Easy:", minesweeperScoresEasy);
+console.log("Medium:", minesweeperScoresMedium);
+console.log("Hard:", minesweeperScoresHard);
