@@ -274,22 +274,9 @@ document.querySelector("body").addEventListener("keydown", (event) => {
     if (revealed.size === rows * cols - mines) {
       revealAllMines();
       stopGame(true);
-
-      checkIfHighscore();
     }
   }
 
-  function checkIfHighscore(){
-    // FETCH!
-    let lowestHighscore = fetch("/scores/?game=minesweeper&difficulty=2")
-    console.log(lowestHighscore);
-
-    if (timeElapsed < lowestHighscore) {
-      addToHighscores();
-    }
-  }
-
-  function addToHighscores(){}
 
   playButton.addEventListener('click', () => {openModalById("difficultySelection")})
   initGame();
