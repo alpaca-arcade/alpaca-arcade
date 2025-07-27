@@ -48,7 +48,7 @@ export class GameWon extends HTMLElement {
                 throw new Error(`Response status: ${response.status}`);
             }
             const scores = await response.json();
-            scores.sort((a, b) => a.value - b.value);
+            scores.sort((a, b) => a.time - b.time);
             const longest = scores.at(-1).time;
             console.log(`longest: ${longest}`);
             console.log(`score: ${this.gameScore}`);
