@@ -22,9 +22,11 @@ export class GameWon extends HTMLElement {
     connectedCallback() {
         const header = document.createElement("h2");
         header.textContent = "CONGRATS! You Won!"
+        this.headerMessage = header;
         this.appendChild(header)
         const scoreDisplay = document.createElement("p");
         scoreDisplay.textContent = `Your time: ${this.gameScore} seconds`;
+        this.scoreDisplay = scoreDisplay;
         this.appendChild(scoreDisplay);
         const statusMessage = document.createElement("p");
         statusMessage.textContent = "Checking high scores...";
@@ -75,6 +77,10 @@ export class GameWon extends HTMLElement {
         submit.type = "submit";
         submit.value = "submit";
         form.appendChild(submit);
+        const formMessage = document.createElement("p");
+        formMessage.classList.add("form-message");
+        form.formMessage = formMessage;
+        form.appendChild(formMessage);
         this.appendChild(form);
         this.hcaptcha.render(
             "hcaptcha",
@@ -95,16 +101,18 @@ export class GameWon extends HTMLElement {
             for (const entry of event.formData.entries()) {
                 payload[entry[0]] = entry[1];
             }
-            // validName = validateName(payload["name"]) 
-            const validName = true;
+            const validName = /^[A-Za-z]{3}$/.test(payload["name"]);
             if (validName) {
                 this.sendScore(payload);
                 this.highScoreForm.querySelector('input[type="submit"]').remove();
             }
             else {
-                this.statusMessage.textContent = "Name must be three letters."
+                this.highScoreForm.formMessage.textContent = "Name must be three letters."
             }
         });
+    }
+    validateName(name) {
+        return /^[A-Za-z]{3}$/.test(str);
     }
     async sendScore(payload) {
         const resource = "/scores/new";
@@ -128,20 +136,30 @@ export class GameWon extends HTMLElement {
         }
     }
     updateDisplay(payload, json) {
-        this.statusMessage.textContent = "Your score was saved!";
         this.highScoreForm.remove();
+        this.headerMessage.remove();
+        if (json.saved) {
+            this.statusMessage.textContent = "Your score was saved!";
+        } else {
+            this.statusMessage.textContent = "An error occurred and your score wasn't saved.";
+        }
+        this.addCloseButton("Awesome!");
+    }
+    notHighScore() {
+        this.statusMessage.textContent = "You didn't make it onto the leaderboard this time!";
+        this.addCloseButton("OK");
+    }
+    addCloseButton(text) {
         const closeButton = document.createElement("button");
-        closeButton.textContent = "Awesome!";
+        closeButton.textContent = text;
         closeButton.type = "button";
         closeButton.classList.add("btn");
         closeButton.classList.add("btn-dark");
         closeButton.addEventListener("click", (event) => {
             document.querySelector("#end-game-modal").close();
+            this.remove();
         });
         this.appendChild(closeButton);
-    }
-    notHighScore() {
-        this.statusMessage.textContent = "You didn't get a high score.";
     }
 }
 customElements.define("game-won", GameWon);
@@ -152,7 +170,25 @@ export class GameOver extends HTMLElement {
         super()
     }
     connectedCallback() {
-        this.textContent = "game over";
+        const header = document.createElement("h2");
+        header.textContent = "Game Over";
+        this.appendChild(header);
+        const message = document.createElement("p");
+        message.textContent = "You tripped on a mine. WOOPS!";
+        this.appendChild(message);
+        this.addCloseButton("Oh no!");
+    }
+    addCloseButton(text) {
+        const closeButton = document.createElement("button");
+        closeButton.textContent = text;
+        closeButton.type = "button";
+        closeButton.classList.add("btn");
+        closeButton.classList.add("btn-dark");
+        closeButton.addEventListener("click", (event) => {
+            document.querySelector("#end-game-modal").close();
+            this.remove();
+        });
+        this.appendChild(closeButton);
     }
 }
 customElements.define("game-over", GameOver);
