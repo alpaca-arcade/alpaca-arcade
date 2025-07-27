@@ -282,11 +282,12 @@ document.querySelector("body").addEventListener("keydown", (event) => {
 
   playButton.addEventListener('click', () => {
     openModalById("difficultySelection")
-    let customSelected = document.querySelectorAll(`input[name="difficulty"]:checked`);
+    
+    let customSelected = document.getElementById("custom");
     
     // because firefox is being difficult!
-    if (customSelected.value == "custom"){
-      customSelected.classList.remove("d-none");
+    if (customSelected.checked){
+      document.getElementById("custom-fields").classList.remove("d-none");
     }
   })
   initGame();
