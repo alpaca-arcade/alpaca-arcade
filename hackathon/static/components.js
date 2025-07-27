@@ -44,17 +44,17 @@ export class GameWon extends HTMLElement {
             const longest = scores.at(-1).time;
             console.log(`longest: ${longest}`);
             console.log(`score: ${this.gameScore}`);
-            if (this.gameScore < longest) {
-                this.statusMessage.textContent = "NEW HIGH SCORE";
+            if (scores.length < 20 || this.gameScore < longest) {
                 this.newHighScore();
             } else {
-                this.gameOver();
+                this.notHighScore();
             }
         } catch (error) {
             console.error(error.message);
         }
     }
     newHighScore() {
+        this.statusMessage.textContent = "You got a HIGH SCORE!";
         const form = document.createElement("form");
         this.highScoreForm = form;
         const label = document.createElement("label");
@@ -99,6 +99,7 @@ export class GameWon extends HTMLElement {
             const validName = true;
             if (validName) {
                 this.sendScore(payload);
+                this.highScoreForm.querySelector('input[type="submit"]').remove();
             }
             else {
                 this.statusMessage.textContent = "Name must be three letters."
@@ -120,14 +121,18 @@ export class GameWon extends HTMLElement {
             }
             const json = await response.json();
             console.log(json);
-            // this.updateDisplay(payload, json);
+            this.updateDisplay(payload, json);
         }
         catch (error) {
             console.error(`Fetch problem: ${error.message}`);
         }
     }
-    gameOver() {
-        console.log("game over");
+    updateDisplay(payload, json) {
+        this.statusMessage.textContent = "Your score was saved!";
+        this.highScoreForm.remove();
+    }
+    notHighScore() {
+        this.statusMessage.textContent = "You didn't get a high score.";
     }
 }
 customElements.define("game-won", GameWon);
