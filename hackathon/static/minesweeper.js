@@ -90,7 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
     }
-      difficulty = value;
+    difficulty = value;
+    document.querySelector("#current-difficulty").innerHTML = `Difficulty: ${capitalize(difficulty)}`
       document.getElementById("bomb-count-error").classList.add("ghost");
       closeModalById('difficultySelection');
       initGame();
@@ -279,7 +280,15 @@ document.querySelector("body").addEventListener("keydown", (event) => {
   }
 
 
-  playButton.addEventListener('click', () => {openModalById("difficultySelection")})
+  playButton.addEventListener('click', () => {
+    openModalById("difficultySelection")
+    let customSelected = document.querySelectorAll(`input[name="difficulty"]:checked`);
+    
+    // because firefox is being difficult!
+    if (customSelected.value == "custom"){
+      customSelected.classList.remove("d-none");
+    }
+  })
   initGame();
 
   const restartButton = document.getElementById("restart-button"); // Add restart button functionality
@@ -321,5 +330,10 @@ document.querySelector("body").addEventListener("keydown", (event) => {
     isGameRunning = false;
     openEndModalAsWinner(isWinner);
   }
+
+  function capitalize(s)
+{
+    return String(s[0]).toUpperCase() + String(s).slice(1);
+}
   
 });
