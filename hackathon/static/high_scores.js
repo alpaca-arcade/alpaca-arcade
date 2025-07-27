@@ -1,12 +1,12 @@
 const container = document.querySelector("div.high-scores");
 
-const minesweeperEasy = newHighScoreTable("Easy", minesweeperScoresEasy);
+const minesweeperEasy = newHighScoreTable("Easy", sortScores(minesweeperScoresEasy));
 container.appendChild(minesweeperEasy);
 
-const minesweeperMedium = newHighScoreTable("Medium", minesweeperScoresMedium);
+const minesweeperMedium = newHighScoreTable("Medium", sortScores(minesweeperScoresMedium));
 container.appendChild(minesweeperMedium);
 
-const minesweeperHard = newHighScoreTable("Hard", minesweeperScoresHard);
+const minesweeperHard = newHighScoreTable("Hard", sortScores(minesweeperScoresHard));
 container.appendChild(minesweeperHard);
 
 function newHighScoreTable(difficulty, scores) {
@@ -52,6 +52,6 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-console.log("Easy:", minesweeperScoresEasy);
-console.log("Medium:", minesweeperScoresMedium);
-console.log("Hard:", minesweeperScoresHard);
+function sortScores(scores) {
+    return scores.sort((a, b) => a.time - b.time);
+}
