@@ -1,4 +1,4 @@
-import { GameWon, GameOver } from "/static/gameover.js"
+import { GameWon, GameOver } from "/hackathon/static/gameover.js"
 
 document.addEventListener('DOMContentLoaded', () => {
 
