@@ -1,10 +1,10 @@
 # Bootsweeper
 
-Play Now at [Bootsweeper](https://jkgarber.com/hackathon)!
+Play Now at [our hosted version](https://jkgarber.com/hackathon)!
 
 > _Minesweeper meets neon style._  
 > A retro-inspired, fully featured minesweeper web app with a global leaderboard, custom difficulty, and cheater-proof high scores!  
-> _Built in 48 hours for the [Boot.dev 2025 Hackathon](https://boot.dev/hackathon)._  
+> _Built in 48 hours for the [Boot.dev](https://boot.dev/) 2025 Hackathon._  
 
 ![Screenshot](https://jkgarber.com/hackathon/static/screenshot.png)
 
@@ -27,6 +27,10 @@ Play Now at [Bootsweeper](https://jkgarber.com/hackathon)!
 
 ## 🏁 Quick Start (for a local server)
 
+It'll take more than 5 minutes so head on over to [Bootsweeper](https://jkgarber.com/hackathon) to play!
+
+Why does it take so long? Setup requires a slight bit of manual config and an [hcaptcha](https://www.hcaptcha.com/) secret.
+
 ### 1. Clone & Install
 
 ```bash
@@ -39,10 +43,6 @@ flask --app hackathon init-db
 ```
 
 ### 2. Set Up
-
-It'll take more than 5 minutes so head on over to [Bootsweeper]() to play!
-
-Why does it take so long? Setup requires a slight bit of manual config and an [hcaptcha](https://www.hcaptcha.com/) secret.
 
 1. **Instance config:**  
    Edit `instance/config.py` with `STATIC_URL = "/hackathon/static"`
