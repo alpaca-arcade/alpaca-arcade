@@ -1,0 +1,123 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+	font-family: Bitcount;
+    background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 40%),
+                radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 40%);
+}
+
+.hero {
+    height: 20vh;
+    color: white;
+}
+
+h1 {
+    font-size: 5rem;
+    color: var(--theme-dark);
+}
+
+.pay-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+}
+
+
+.play-button {
+    display: block;
+    padding: 80px 80px;
+    background: radial-gradient(circle at center, white 0, var(--theme-light) 20%, transparent 100%);
+    text-decoration: none;
+    color: green;
+    border-radius: 50%;
+    box-shadow: 0px 0px 9px var(--theme-accent);
+    border: 3px solid var(--theme-light);
+    margin-bottom: 15px;
+}
+
+.play-button:active {
+    box-shadow: 0px 0px 9px white;
+    border: 3px inset var(--theme-light);
+    background: radial-gradient(circle at center, white 0, var(--theme-light) 80%, transparent 100%);
+}
+
+
+.play-button:hover {
+    box-shadow: 0px 0px 9px white;
+    border-color: white;
+}
+
+
+.play-button-label {
+    font-weight: 600;
+    color: var(--theme-dark);
+    text-align: center;
+    font-size: 2rem;
+}
+
+.lit {
+    text-shadow: var(--theme-accent) 1px 0 5px;
+    letter-spacing: 0.2rem;
+}
+
+.leaderboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: white;
+    width: 40vw;
+    overflow: scroll;
+    height: 30vh;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 50px 0px;
+    border-radius: 15px;
+    background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 50%),
+                radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 50%);
+}
+
+.leaderboard-container h2 {
+    font-size: 2rem;
+}
+
+.leaderboards {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.leaderboard h3 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+th, td {
+    padding:2px 5px;
+}
+
+th {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+td {
+    font-size: 1.2rem;
+}
+
+td.name {
+    text-align: center;
+}
+
+td.value {
+    text-align: right;
+}
