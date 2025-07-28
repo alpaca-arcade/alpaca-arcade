@@ -53,7 +53,6 @@ def new():
         }
         response = requests.post(url=HCAPTCHA_VERIFY_URL, data=data)
         result = response.json()
-        print(result)
         if not result.get("success"):
             error = "Captcha failed"
         if error is None:
@@ -63,7 +62,7 @@ def new():
             if score_saved:
                 return jsonify({"saved": True})
             return jsonify({"saved": False}),
-        return jsonify({'success': False, 'message': error}), 403
+        return jsonify({'success': False, 'message': error, 'response': response}), 403
     return jsonify({'success': False, 'message': error}), 400
 
 
