@@ -622,20 +622,4 @@ restartButton.addEventListener('click', restartGame);
 // Start the initial game
 initGame();
 
-// ========================================
-// DEBUG/DEVELOPMENT (DELETE BEFORE PRODUCTION)
-// ========================================
-
-// ----------------------------------------
-// DELETE THIS HACK BEFORE GOLIVE
-document.querySelector("body").addEventListener("keydown", (event) => { 
-    if (!isGameRunning) { return;}
-    if (event.code == "KeyW") {
-        stopGame(true)
-    } else if (event.code == "KeyL") {
-        stopGame(false)
-    }
-});
-// ----------------------------------------
-
 });
