@@ -1,10 +1,11 @@
 import os
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
+from instance.config import STATIC_URL
 
 
 def create_app(test_config=None):
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, static_url_path=STATIC_URL, instance_relative_config=True)
     app.wsgi_app = ProxyFix(
         app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
     )
