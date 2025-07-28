@@ -1,0 +1,128 @@
+dialog {
+    border-radius: 15px;
+    background-color: #000517;
+    color: var(--theme-light);
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+dialog input {
+    background-color: inherit;
+    color: inherit;
+    width: 100px;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid var(--theme-dark);
+}
+
+dialog input:focus {
+    outline: none;
+}
+
+game-won form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+game-won > * {
+    text-align: center;
+}
+
+#hcaptcha {
+    margin-top: 20px;
+}
+
+game-won {
+    display: grid;
+    place-items: center;
+    margin-top: auto;
+}
+
+dialog button, input[type="submit"] {
+    background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 100%),
+                radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 100%);
+    text-decoration: none;
+    color: white;
+    box-shadow: 0px 0px 9px var(--theme-accent);
+    border: 3px solid var(--theme-light);
+    border-radius: 5px;
+    width: 100%
+}
+
+dialog input[type="number"] {
+    width: 55px;
+    margin-left: 10px;
+}
+
+dialog button:active {
+    box-shadow: 0px 0px 9px white;
+    border: 3px inset var(--theme-light);
+    background: radial-gradient(circle at center, white 0, var(--theme-light) 80%, transparent 100%);
+}
+
+
+dialog button:hover {
+    box-shadow: 0px 0px 9px white;
+    border-color: white;
+}
+
+form[method="dialog"] label {
+    color: var(--theme-light);
+}
+
+form[method="dialog"] p {
+}
+
+div.confirm-button {
+    margin-top: 25px;
+}
+
+dialog input[type="number"]::-webkit-inner-spin-button,
+dialog input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.radio-container {
+    display: flex;
+    flex-direction: row;  /* This puts the checkbox to the left of the label */
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-container input {
+    width: initial;
+}
+
+.difficulty-description {
+    margin-bottom: 0;
+    color: var(--theme-darkest);
+}
+
+#custom-fields {
+    margin: 20px auto auto auto;
+    width: 200px;
+}
+
+.custom-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hint {
+    color: var(--theme-darkest);
+    font-size: 12px;
+}

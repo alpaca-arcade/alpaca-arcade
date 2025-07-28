@@ -70,6 +70,7 @@ export class GameWon extends HTMLElement {
         label.setAttribute("for", "name");
         form.appendChild(label);
         const input = document.createElement("input");
+        input.classList.add("neon-border");
         input.type = "text";
         input.id = "name";
         input.name = "name";
@@ -160,8 +161,6 @@ export class GameWon extends HTMLElement {
         const closeButton = document.createElement("button");
         closeButton.textContent = text;
         closeButton.type = "button";
-        closeButton.classList.add("btn");
-        closeButton.classList.add("btn-dark");
         closeButton.addEventListener("click", (event) => {
             document.querySelector("#end-game-modal").close();
             this.remove();

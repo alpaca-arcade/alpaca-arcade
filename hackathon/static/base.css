@@ -4,11 +4,10 @@
     --theme-accent: #F0FF42;
     --theme-light: #82CD47;
     --border-thick: 5px;
-
 }
 
 * {
-        box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .neon-border {
@@ -17,6 +16,6 @@
 }
 
 body {
-        margin: 0;
+    margin: 0;
     background-color: #000517;
 }
