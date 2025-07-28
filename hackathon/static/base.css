@@ -24,3 +24,7 @@ body {
 dialog {
     outline: none;
 }
+
+.display-none {
+    display: none;
+}

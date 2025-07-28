@@ -496,7 +496,7 @@ function openDifficultyModal() {
     // don't reset radio buttons when page is refreshed, so manually show custom fields
     // if custom difficulty is still selected
     if (customSelected.checked) {
-        document.getElementById("custom-fields").classList.remove("d-none");
+        document.getElementById("custom-fields").classList.remove("display-none");
     }
 }
 
