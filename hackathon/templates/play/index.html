@@ -9,7 +9,7 @@
 {% block main %}
 <script src="{{ url_for("static", filename="gameover.js") }}" type="module"></script>
 <nav class="navbar navbar-dark bg-dark px-3"> 
-  <a class="navbar-brand fw-bold text-light" href="/">← Home</a>
+    <a class="navbar-brand fw-bold text-light" href="{{ url_for("home.index") }}">← Home</a>
 </nav>
 <dialog id="difficultySelection" class="rounded p-4 neon-border" style="max-width: 500px;">
   <form method="dialog">
