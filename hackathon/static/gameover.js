@@ -119,7 +119,6 @@ export class GameWon extends HTMLElement {
             payload["difficulty"] = this.gameDifficulty;
             payload["score"] = this.gameScore;
             for (const entry of event.formData.entries()) {
-                console.log("here");
                 payload[entry[0]] = entry[1];
             }
             const validName = /^[A-Za-z]{3}$/.test(payload["name"]);
@@ -142,14 +141,14 @@ export class GameWon extends HTMLElement {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         }
-        console.log(options);
         try {
             const response = await fetch(resource, options);
             if (!response.ok) {
                 throw new Error(`HTTP error: ${response.status}`);
+                this.statusMessage.textContent = "Captcha failed";
+                this.addCloseButton("OK");
             }
             const json = await response.json();
-            console.log(json);
             this.updateDisplay(payload, json);
         }
         catch (error) {

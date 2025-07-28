@@ -53,6 +53,7 @@ def new():
         }
         response = requests.post(url=HCAPTCHA_VERIFY_URL, data=data)
         result = response.json()
+        print(result)
         if not result.get("success"):
             error = "Captcha failed"
         if error is None:
