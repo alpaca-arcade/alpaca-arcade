@@ -49,13 +49,17 @@ export class GameWon extends HTMLElement {
             }
             const scores = await response.json();
             scores.sort((a, b) => a.time - b.time);
-            const longest = scores.at(-1).time;
-            console.log(`longest: ${longest}`);
-            console.log(`score: ${this.gameScore}`);
-            if (scores.length < 20 || this.gameScore < longest) {
-                this.newHighScore();
+            if (scores.length > 0) {
+                const longest = scores.at(-1).time;
+                console.log(`longest: ${longest}`);
+                console.log(`score: ${this.gameScore}`);
+                if (scores.length < 20 || this.gameScore < longest) {
+                    this.newHighScore();
+                } else {
+                    this.notHighScore();
+                }
             } else {
-                this.notHighScore();
+                this.newHighScore();
             }
         } catch (error) {
             console.error(error.message);
