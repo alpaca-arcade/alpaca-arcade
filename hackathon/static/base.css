@@ -20,3 +20,7 @@ body {
     background-color: #000517;
     font-family: Bitcount;
 }
+
+dialog {
+    outline: none;
+}

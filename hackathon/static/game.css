@@ -137,3 +137,7 @@ body {
     margin: 30px;
     padding: 0 30px;
 }
+
+.game-info {
+    font-size: 20px;
+}

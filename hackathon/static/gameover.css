@@ -16,6 +16,7 @@ dialog input {
     padding: 5px;
     text-align: center;
     border: 1px solid var(--theme-dark);
+    font-family: inherit;
 }
 
 dialog input:focus {
@@ -53,6 +54,7 @@ dialog button, input[type="submit"] {
     border: 3px solid var(--theme-light);
     border-radius: 5px;
     width: 100%
+    font-family: inherit;
 }
 
 dialog input[type="number"] {
@@ -99,6 +101,7 @@ input[type="number"] {
     justify-content: start;
     align-items: center;
     gap: 10px;
+    margin-bottom: 10px;
 }
 
 .radio-container input {
@@ -107,6 +110,7 @@ input[type="number"] {
 
 .difficulty-description {
     margin-bottom: 0;
+    margin-top: 0;
     color: var(--theme-darkest);
 }
 
