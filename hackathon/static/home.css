@@ -6,8 +6,8 @@
     align-items: center;
     min-height: 100vh;
 	font-family: Bitcount;
-    background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 50%),
-                radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 50%);
+    background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 40%),
+                radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 40%);
 }
 
 .hero {
