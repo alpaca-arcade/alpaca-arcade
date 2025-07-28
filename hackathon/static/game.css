@@ -1,3 +1,9 @@
+body {
+    background-color: #000517;
+    color: white;
+    font-family: Bitcount;
+}
+
 .board {
   display: grid;
   gap: 2px;
@@ -61,3 +67,4 @@
 .cell.number-6 { color: #14b8a6; }   /* Teal */
 .cell.number-7 { color: #eab308; }   /* Yellow */
 .cell.number-8 { color: #f43f5e; }   /* Rose */
+
