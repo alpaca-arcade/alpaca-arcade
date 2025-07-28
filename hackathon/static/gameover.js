@@ -84,6 +84,7 @@ export class GameWon extends HTMLElement {
         const linebreak = document.createElement("br");
         form.appendChild(linebreak);
         const submit = document.createElement("input");
+        submit.classList.add("dialog-button");
         submit.type = "submit";
         submit.value = "Submit";
         form.appendChild(submit);
@@ -167,6 +168,7 @@ export class GameWon extends HTMLElement {
     }
     addCloseButton(text) {
         const closeButton = document.createElement("button");
+        closeButton.classList.add("dialog-button");
         closeButton.textContent = text;
         closeButton.type = "button";
         closeButton.addEventListener("click", (event) => {
@@ -188,7 +190,7 @@ export class GameOver extends HTMLElement {
         header.textContent = "Game Over";
         this.appendChild(header);
         const message = document.createElement("p");
-        message.textContent = "You tripped on a mine. WOOPS!";
+        message.textContent = "You stepped on a mine. WOOPS!";
         this.appendChild(message);
         this.addCloseButton("Oh no!");
     }
@@ -196,8 +198,7 @@ export class GameOver extends HTMLElement {
         const closeButton = document.createElement("button");
         closeButton.textContent = text;
         closeButton.type = "button";
-        closeButton.classList.add("btn");
-        closeButton.classList.add("btn-dark");
+        closeButton.classList.add("dialog-button");
         closeButton.addEventListener("click", (event) => {
             document.querySelector("#end-game-modal").close();
             this.remove();
