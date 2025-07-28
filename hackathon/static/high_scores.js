@@ -1,4 +1,4 @@
-const container = document.querySelector("div.high-scores");
+const container = document.querySelector("div.leaderboards");
 
 const minesweeperEasy = newHighScoreTable("Easy", sortScores(minesweeperScoresEasy));
 container.appendChild(minesweeperEasy);
@@ -11,12 +11,11 @@ container.appendChild(minesweeperHard);
 
 function newHighScoreTable(difficulty, scores) {
     const container = document.createElement("div");
+    container.classList.add("leaderboard");
     const heading = document.createElement("h3");
     heading.textContent = difficulty;
     container.appendChild(heading);
     const table = document.createElement("table");
-    table.classList.add("table");
-    table.classList.add("table-dark");
     thead = document.createElement("thead");
     tbody = document.createElement("tbody");
 
@@ -32,9 +31,11 @@ function newHighScoreTable(difficulty, scores) {
     for (score of scores) {
         tbodyrow = document.createElement("tr");
         score_name = document.createElement("td");
+        score_name.classList.add("name");
         score_name.textContent = score.name;
         tbodyrow.appendChild(score_name);
         score_value = document.createElement("td");
+        score_value.classList.add("value");
         score_value.textContent = score["time"];
         tbodyrow.appendChild(score_value);
         tbody.appendChild(tbodyrow);

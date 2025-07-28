@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='jkg.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 {% endblock %}
 
 {% block main %}
@@ -10,15 +10,15 @@
 <script>const minesweeperScoresHard = {{ minesweeper_scores_hard | tojson }};</script>
 <div class="main-container">
     <div class="hero">
-        <h1 class="display-1">{% block title %}BOOTSWEEPER{% endblock %}</h1>
+        <h1 class="lit">{% block title %}BOOTSWEEPER{% endblock %}</h1>
     </div>
     <div class="play-button-container">
         <a class="play-button" href="{{ url_for('play.index') }}"></a>
         <p class="play-button-label lit">PLAY</p>
     </div>
-    <div class="leaderboard-container">
+    <div class="leaderboard-container neon-border">
         <h2>Leaderboard</h2>
-        <div class="d-flex gap-5 leaderboard"></div>
+        <div class="leaderboards"></div>
     </div>
 </div>
 
