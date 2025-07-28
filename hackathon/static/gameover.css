@@ -45,16 +45,17 @@ game-won {
     margin-top: auto;
 }
 
-dialog button, input[type="submit"] {
+.dialog-button {
     background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 100%),
                 radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 100%);
     text-decoration: none;
     color: white;
     box-shadow: 0px 0px 9px var(--theme-accent);
-    border: 3px solid var(--theme-light);
+    border: 1px solid var(--theme-light);
     border-radius: 5px;
-    width: 100%
+    width: 100%;
     font-family: inherit;
+    font-size: 16px;
 }
 
 dialog input[type="number"] {
@@ -62,16 +63,17 @@ dialog input[type="number"] {
     margin-left: 10px;
 }
 
-dialog button:active {
+.dialog-button:active {
     box-shadow: 0px 0px 9px white;
-    border: 3px inset var(--theme-light);
-    background: radial-gradient(circle at center, white 0, var(--theme-light) 80%, transparent 100%);
+    border: 1px inset var(--theme-light);
+    background: radial-gradient(circle at center, white 0, var(--theme-light) 10%, transparent 100%);
 }
 
 
-dialog button:hover {
+.dialog-button:hover {
     box-shadow: 0px 0px 9px white;
     border-color: white;
+    cursor: pointer;
 }
 
 form[method="dialog"] label {
