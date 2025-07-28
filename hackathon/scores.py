@@ -49,7 +49,6 @@ def new():
         data = {
             "secret": HCAPTCHA_SECRET,
             "response":hc_token,
-            "remoteip": request.remote_addr,
         }
         response = requests.post(url=HCAPTCHA_VERIFY_URL, data=data)
         result = response.json()
@@ -62,7 +61,7 @@ def new():
             if score_saved:
                 return jsonify({"saved": True})
             return jsonify({"saved": False}),
-        return jsonify({'success': False, 'message': error, 'response': response}), 403
+        return jsonify({'success': False, 'message': error}), 403
     return jsonify({'success': False, 'message': error}), 400
 
 
