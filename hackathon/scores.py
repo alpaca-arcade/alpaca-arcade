@@ -1,14 +1,32 @@
+import logging
 from flask import Blueprint, request, jsonify
 from hackathon.db import get_db
 import requests
 import os
 
+# Setup logging
+logger = logging.getLogger(__name__)
 
-HCAPTCHA_SECRET = os.environ.get("HCAPTCHA_SECRET")
+bp = Blueprint("scores", __name__, url_prefix="/scores")
+
+
+def get_credential(name):
+    os_env_var = os.environ.get(name)                                                                                                                                                                              
+    if os_env_var is not None:                                                                                                                                                                                     
+        return os_env_var                                                                                                                                                                                          
+    else:                                                                                                                                                                                                          
+        credential_path = os.environ.get('CREDENTIALS_DIRECTORY')                                                                                                                                                  
+        with open(f'{credential_path}/{name}') as f:                                                                                                                                                               
+            credential = f.read().strip()
+            return credential
+
+
+HCAPTCHA_SECRET = get_credential("HCAPTCHA_SECRET")
 HCAPTCHA_VERIFY_URL = "https://api.hcaptcha.com/siteverify"
 
 
-bp = Blueprint("scores", __name__, url_prefix="/scores")
+# Add debug output about the environment
+logger.debug(f"HCAPTCHA_SECRET set: {'Yes' if HCAPTCHA_SECRET else 'No'}")
 
 
 @bp.route("/", methods=("GET",))
@@ -33,6 +51,10 @@ def new():
     name = request.json["name"]
     score = request.json["score"]
     error = None
+
+	# Log the incoming request
+    logger.debug(f"New score submission: game={game}, difficulty={difficulty}, name={name}")
+
     if game not in ["minesweeper"]:
         error = "invalid or missing game"
     if difficulty not in [0, 1, 2]:
@@ -42,26 +64,41 @@ def new():
     name = name.upper()
     if type(score) != int and not score.isdigit():
         error = "invalid score"
+
     hc_token = request.json["h-captcha-response"]
+    logger.debug(f"hCaptcha token received: {bool(hc_token)}")
+ 
     if hc_token is None:
         error = "Captcha token missing"
+
     if error is None:
         data = {
             "secret": HCAPTCHA_SECRET,
             "response":hc_token,
+			"remoteip": request.remote_addr,
         }
-        response = requests.post(url=HCAPTCHA_VERIFY_URL, data=data)
-        result = response.json()
-        if not result.get("success"):
-            error = "Captcha failed"
-        if error is None:
-            score = int(score)
-            new_score = dict(game=game, difficulty=difficulty, name=name, score=score)
-            score_saved = save_score(new_score)
-            if score_saved:
-                return jsonify({"saved": True})
-            return jsonify({"saved": False}),
-        return jsonify({'success': False, 'message': error}), 403
+        logger.debug(f"Sending verification to hCaptcha: ip={request.remote_addr}")
+
+        try:
+            response = requests.post(url=HCAPTCHA_VERIFY_URL, data=data)
+            result = response.json()
+            logger.debug(f"hCaptcha verification result: {result}")
+
+            if not result.get("success"):
+                error = f"Captcha failed: {result.get('error-codes', ['unknown error'])}"
+                logger.error(f"hCaptcha verification failed: {result}")
+
+            if error is None:
+                score = int(score)
+                new_score = dict(game=game, difficulty=difficulty, name=name, score=score)
+                score_saved = save_score(new_score)
+                if score_saved:
+                    return jsonify({"saved": True})
+                return jsonify({"saved": False}),
+            return jsonify({'success': False, 'message': error}), 403
+        except Exception as e:
+            logger.exception(f"Exception during hCaptcha verification: {str(e)}")
+            error = f"Verification error: {str(e)}"
     return jsonify({'success': False, 'message': error}), 400
 
 
