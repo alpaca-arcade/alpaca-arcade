@@ -41,18 +41,18 @@ export class GameWon extends HTMLElement {
     }
     async checkHighScores() {
         this.statusMessage.textContent = "Checking high scores...";
-        const url = `/hackathon/scores/?game=minesweeper&difficulty=${this.gameDifficulty}`;
+        const url = `/scores/?game=minesweeper&difficulty=${this.gameDifficulty}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
+                this.statusMessage.textContent = "Error: can't get high scores from server.";
+                this.addCloseButton("OK");
                 throw new Error(`Response status: ${response.status}`);
             }
             const scores = await response.json();
             scores.sort((a, b) => a.time - b.time);
             if (scores.length > 0) {
                 const longest = scores.at(-1).time;
-                console.log(`longest: ${longest}`);
-                console.log(`score: ${this.gameScore}`);
                 if (scores.length < 20 || this.gameScore < longest) {
                     this.newHighScore();
                 } else {
@@ -135,7 +135,7 @@ export class GameWon extends HTMLElement {
         return /^[A-Za-z]{3}$/.test(str);
     }
     async sendScore(payload) {
-        const resource = "/hackathon/scores/new";
+        const resource = "/scores/new";
         const options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -144,9 +144,9 @@ export class GameWon extends HTMLElement {
         try {
             const response = await fetch(resource, options);
             if (!response.ok) {
-                throw new Error(`HTTP error: ${response.status}`);
                 this.statusMessage.textContent = "Captcha failed";
                 this.addCloseButton("OK");
+                throw new Error(`HTTP error: ${response.status}`);
             }
             const json = await response.json();
             this.updateDisplay(payload, json);
