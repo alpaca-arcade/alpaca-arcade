@@ -18,4 +18,9 @@
 body {
     margin: 0;
     background-color: #000517;
+    font-family: Bitcount;
+}
+
+dialog {
+    outline: none;
 }

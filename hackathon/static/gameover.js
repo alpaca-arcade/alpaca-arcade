@@ -66,7 +66,7 @@ export class GameWon extends HTMLElement {
         const form = document.createElement("form");
         this.highScoreForm = form;
         const label = document.createElement("label");
-        label.textContent = "Enter a 3-letter name:";
+        label.textContent = "Enter a 3-letter name";
         label.setAttribute("for", "name");
         form.appendChild(label);
         const input = document.createElement("input");
@@ -74,6 +74,9 @@ export class GameWon extends HTMLElement {
         input.type = "text";
         input.id = "name";
         input.name = "name";
+        input.setAttribute("minlength", "3");
+        input.setAttribute("maxlength", "3");
+        input.setAttribute("placeholder", "AAA");
         form.appendChild(input);
         const hcaptchaDiv = document.createElement("div");
         hcaptchaDiv.setAttribute("id", "hcaptcha");
@@ -82,7 +85,7 @@ export class GameWon extends HTMLElement {
         form.appendChild(linebreak);
         const submit = document.createElement("input");
         submit.type = "submit";
-        submit.value = "submit";
+        submit.value = "Submit";
         form.appendChild(submit);
         const formMessage = document.createElement("p");
         formMessage.classList.add("form-message");
@@ -98,7 +101,12 @@ export class GameWon extends HTMLElement {
         );
         form.addEventListener("submit", (event) => {
             event.preventDefault();
-            new FormData(form);
+            const hcapResponse = document.querySelector("#hcaptcha > iframe").getAttribute("data-hcaptcha-response");
+            if (hcapResponse) {
+                new FormData(form);
+            } else {
+                this.highScoreForm.formMessage.textContent = "Captcha is required.";
+            }    
         });
         form.addEventListener("formdata", (event) => {
             const payload = new Object();
@@ -115,7 +123,7 @@ export class GameWon extends HTMLElement {
                 this.highScoreForm.querySelector('input[type="submit"]').remove();
             }
             else {
-                this.highScoreForm.formMessage.textContent = "Name must be three letters."
+                this.highScoreForm.formMessage.textContent = "Name must be three letters.";
             }
         });
     }

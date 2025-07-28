@@ -1,3 +1,21 @@
+body {
+    background-color: #000517;
+    color: white;
+    font-family: Bitcount;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Bitcount;
+    background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 40%),
+                radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 40%);
+}
+
 .board {
   display: grid;
   gap: 2px;
@@ -61,3 +79,65 @@
 .cell.number-6 { color: #14b8a6; }   /* Teal */
 .cell.number-7 { color: #eab308; }   /* Yellow */
 .cell.number-8 { color: #f43f5e; }   /* Rose */
+
+.game-button {
+    font-size: 16px;
+    font-family: inherit;
+    text-align:center;
+    background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 50%),
+                radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 50%);
+    text-decoration: none;
+    color: white;
+    box-shadow: 0px 0px 9px var(--theme-accent);
+    border: 1px solid var(--theme-light);
+    border-radius: 5px;
+    padding: 8px 30px;
+}
+
+.game-button:active {
+    box-shadow: 0px 0px 9px white;
+    background: radial-gradient(circle at center, white 0, var(--theme-light) 20%, transparent 100%);
+}
+
+
+.game-button:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 9px white;
+    border-color: var(--theme-accent);
+}
+
+.back-button {
+    width: 30%;
+}
+
+#current-difficulty {
+    text-align: center;
+    font-size: 20px;
+}
+
+.change-difficulty {
+    font-size: 12px;
+    padding: 5px 15px;
+}
+
+.difficulty-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.game-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: 30px;
+    padding: 0 30px;
+}
+
+.game-info {
+    font-size: 20px;
+}
