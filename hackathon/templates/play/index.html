@@ -2,6 +2,7 @@
 {% block head %}
 <script src="https://js.hcaptcha.com/1/api.js?render=explicit" async defer></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='game.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='gameover.css') }}">
 {% endblock %}
 {%block title %}Minesweeper{% endblock %}
 
@@ -10,51 +11,51 @@
 <nav class="navbar navbar-dark bg-dark px-3"> 
   <a class="navbar-brand fw-bold text-light" href="/">← Home</a>
 </nav>
-<dialog id="difficultySelection" class="rounded p-4 border-0" style="max-width: 500px;">
+<dialog id="difficultySelection" class="rounded p-4 neon-border" style="max-width: 500px;">
   <form method="dialog">
     <h4 class="text-center mb-3">Choose Difficulty</h4>
 
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="radio" name="difficulty" value="easy" id="easy">
+    <div class="radio-container">
+      <input class="" type="radio" name="difficulty" value="easy" id="easy">
       <label class="form-check-label" for="easy">Easy</label>
-      <p class="text-muted mb-3 ghost" data-difficulty="easy">8x8 grid, 10 bombs</p>
+      <p class="ghost difficulty-description" data-difficulty="easy">8x8 grid, 10 bombs</p>
     </div>
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="radio" name="difficulty" value="medium" id="medium" checked>
+    <div class="radio-container">
+      <input class="" type="radio" name="difficulty" value="medium" id="medium" checked>
       <label class="form-check-label" for="medium">Medium</label>
-      <p class="text-muted mb-3" data-difficulty="medium">16x16 grid, 40 bombs</p>
+      <p class="difficulty-description" data-difficulty="medium">16x16 grid, 40 bombs</p>
     </div>
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="radio" name="difficulty" value="hard" id="hard">
+    <div class="radio-container">
+      <input class="" type="radio" name="difficulty" value="hard" id="hard">
       <label class="form-check-label" for="hard">Hard</label>
-      <p class="text-muted mb-3 ghost" data-difficulty="hard">24x24 grid, 99 bombs</p>
+      <p class="ghost difficulty-description" data-difficulty="hard">24x24 grid, 99 bombs</p>
     </div>
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="radio" name="difficulty" value="custom" id="custom">
+    <div class="radio-container">
+      <input class="" type="radio" name="difficulty" value="custom" id="custom">
       <label class="form-check-label" for="custom">Custom</label>
+      <p class="difficulty-description">Set your own grid size and bomb count.</p>
     </div>
 
     <div id="custom-fields" class="d-none"> <!-- Custom fields for user input dropdown -->
-      <p class="text-muted mb-3">Set your own grid size and bomb count.</p>
-      <div class="mb-3">
+      <div class="custom-field">
         <label class="form-label" for="rC">Rows</label>
-        <p id="row-count-error" class="mb-2 text-danger ghost">Required field for custom</p>
-        <input id="rC" class="form-control" type="number" min="5" max="100">
+        <input id="rC" class="" type="number" min="5" max="100">
       </div>
-      <div class="mb-3">
+        <p id="row-count-error" class="mb-2 hint"></p>
+      <div class="custom-field">
         <label class="form-label" for="cC">Columns</label>
-        <p id="col-count-error" class="mb-2 text-danger ghost">Required field for custom</p>
-        <input id="cC" class="form-control" type="number" min="5" max="100">
+        <input id="cC" class="" type="number" min="5" max="100">
       </div>
-      <div class="mb-4">
+        <p id="col-count-error" class="mb-2 hint"></p>
+      <div class="custom-field">
         <label class="form-label" for="bC">Mines</label>
-        <p id="bomb-count-error" class="mb-2 text-danger ghost"></p>
-        <input id="bC" class="form-control" type="number" min="1">
+        <input id="bC" class="" type="number" min="1">
       </div>
+        <p id="bomb-count-error" class="mb-2 ghost hint"></p>
     </div>
 
-    <div class="text-center">
-      <button class="btn btn-primary" type="submit">Confirm</button>
+    <div class="confirm-button text-center">
+      <button class="" type="submit">Confirm</button>
     </div>
   </form>
 
@@ -72,7 +73,7 @@
   </script>
 </dialog>
 
-<dialog id="end-game-modal">
+<dialog id="end-game-modal" class="neon-border">
 </dialog>
 
 <div class="bg-dark d-flex justify-content-center align-items-center min-vh-100">
