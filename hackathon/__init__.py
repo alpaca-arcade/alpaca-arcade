@@ -1,11 +1,11 @@
 import os
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
-from instance.config import STATIC_URL
+from instance.config import APPLICATION_ROOT
 
 
 def create_app(test_config=None):
-    app = Flask(__name__, static_url_path=STATIC_URL, instance_relative_config=True)
+    app = Flask(__name__, instance_relative_config=True, static_url_path=APPLICATION_ROOT+"/static")
     app.wsgi_app = ProxyFix(
         app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
     )
@@ -23,18 +23,21 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    application_root = app.config.get('APPLICATION_ROOT', '')
+
     from . import db
     db.init_app(app)
 
     from . import home
-    app.register_blueprint(home.bp)
-    app.add_url_rule("/", endpoint="index")
+    app.register_blueprint(home.bp, url_prefix=application_root)
+    app.add_url_rule(application_root, endpoint="index")
 
     from . import play
-    app.register_blueprint(play.bp)
+    app.register_blueprint(play.bp, url_prefix=application_root+"/play")
 
     from .import scores
-    app.register_blueprint(scores.bp)
+    app.register_blueprint(scores.bp, url_prefix=application_root+"/scores")
+
 
     return app
 
