@@ -44,7 +44,10 @@ pip install -e .
 ### 2. Set Up
 
 1. **Instance config:**  
-   Edit `instance/config.py` with `APPLICATION_ROOT = "/hackathon"`
+   Edit `instance/config.py` with:
+   ```python
+   `APPLICATION_ROOT = "/hackathon"`
+   ```
    Before you initialize the database, if you would like to insert dummy data for the leaderboard, edit `instance/config.py` with:
    ```python
    MINESWEEPER_SCORES = [
