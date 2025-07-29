@@ -81,7 +81,7 @@ pip install -e .
 ```bash
 flask --app hackathon run
 ```
-Visit [http://localhost:5000](http://localhost:5000) and start sweeping!
+Visit [http://localhost:5000/hackathon](http://localhost:5000/hackathon) and start sweeping!
 
 #### (Optional) Run via Gunicorn
 Production-style:
