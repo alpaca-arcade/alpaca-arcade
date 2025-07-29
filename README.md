@@ -63,16 +63,18 @@ pip install -e .
    ]
    ```
 
-2. **hCaptcha secret**
-   Make your hCaptcha secret key an environment variable called `HCAPTCHA_SECRET`
-   Make your hCaptcha site key an environment variable called `HCAPTCHA_SITEKEY`
+2. **hCaptcha environment variables**
    (You can skip this part if you don't save your high scores.)
+   
+   Make your hCaptcha secret key an environment variable called `HCAPTCHA_SECRET`.
+
+   Make your hCaptcha site key an environment variable called `HCAPTCHA_SITEKEY`.
 
 3. **Initialize the database:**
+   (You can skip this if you don't save your high scores.)
    ```bash
    flask --app hackathon init-db
    ```
-   (You can skip this if you don't save your high scores.)
 
 ### 3. Run the App
 
