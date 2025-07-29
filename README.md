@@ -4,7 +4,7 @@ Play Now at [our hosted version](https://jkgarber.com/hackathon)!
 
 > _Minesweeper meets neon style._  
 > A retro-inspired, fully featured minesweeper web app with a global leaderboard, custom difficulty, and cheater-proof high scores!  
-> _Built in 48 hours for the [Boot.dev](https://boot.dev/) 2025 Hackathon._  
+> _Built in 72 hours for the [Boot.dev](https://boot.dev/) 2025 Hackathon._  
 
 ![Screenshot](https://jkgarber.com/hackathon/static/screenshot.png)
 
@@ -16,7 +16,7 @@ Play Now at [our hosted version](https://jkgarber.com/hackathon)!
 - **Live Global Leaderboards**:  
   High scores by difficulty, stored server-side (no local cheating possible!).
 
-- **HCaptcha-Protected Submissions**:  
+- **hCaptcha-Protected Submissions**:  
   Anti-bot/anti-cheat: getting on the leaderboard actually means something!
 
 - **Retro Neon Aesthetics**:  
@@ -27,9 +27,9 @@ Play Now at [our hosted version](https://jkgarber.com/hackathon)!
 
 ## 🏁 Quick Start (for a local server)
 
-It'll take more than 5 minutes so head on over to [Bootsweeper](https://jkgarber.com/hackathon) to play!
+It'll take more than 5 minutes so head on over to [Bootsweeper](https://jkgarber.com/hackathon) if you just want to play!
 
-Why does it take so long? Setup requires a slight bit of manual config and an [hcaptcha](https://www.hcaptcha.com/) secret.
+Why does it take so long? Setup requires a slight bit of manual config and an [hCaptcha](https://www.hcaptcha.com/) secret.
 
 ### 1. Clone & Install
 
@@ -39,20 +39,33 @@ cd bootdotdev_hackathon_2025
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-flask --app hackathon init-db
 ```
 
 ### 2. Set Up
 
 1. **Instance config:**  
-   Edit `instance/config.py` with `STATIC_URL = "/hackathon/static"`
+   Edit `instance/config.py` with `APPLICATION_ROOT = "/hackathon"`
+   Before you initialize the database, if you would like to insert dummy data for the leaderboard, edit `instance/config.py` with:
+   ```python
+   MINESWEEPER_SCORES = [
+       [0, "AAA", 100],
+       [0, "BBB", 200],
+       [0, "CCC", 300],
+       [1, "AAA", 100],
+       [1, "BBB", 200],
+       [1, "CCC", 300],
+       [2, "AAA", 100],
+       [2, "BBB", 200],
+       [2, "CCC", 300],
+   ]
+   ```
 
 2. **hCaptcha secret**
    Make your hCaptcha secret key an environment variable called `HCAPTCHA_SECRET`
    Make your hCaptcha site key an environment variable called `HCAPTCHA_SITEKEY`
    (You can skip this part if you don't save your high scores.)
 
-2. **Initialize the database:**  
+3. **Initialize the database:**
    ```bash
    flask --app hackathon init-db
    (You can skip this if you don't save your high scores.)
@@ -99,4 +112,3 @@ Feel free to tag us or [Boot.dev](https://twitter.com/bootdotdev) if you enjoyed
 ## 🎉 For the Boot.dev Hackathon
 
 We built this in a wild weekend sprint—feedback and stars appreciated!  
-Tag #BootdevHackathon if you share or remix.
