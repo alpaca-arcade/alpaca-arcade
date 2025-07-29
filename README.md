@@ -68,8 +68,8 @@ pip install -e .
 3. **Initialize the database:**
    ```bash
    flask --app hackathon init-db
-   (You can skip this if you don't save your high scores.)
    ```
+   (You can skip this if you don't save your high scores.)
 
 ### 3. Run the App
 
