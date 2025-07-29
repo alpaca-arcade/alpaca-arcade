@@ -11,12 +11,12 @@ bp = Blueprint("scores", __name__, url_prefix="/scores")
 
 
 def get_credential(name):
-    os_env_var = os.environ.get(name)                                                                                                                                                                              
-    if os_env_var is not None:                                                                                                                                                                                     
-        return os_env_var                                                                                                                                                                                          
-    else:                                                                                                                                                                                                          
-        credential_path = os.environ.get('CREDENTIALS_DIRECTORY')                                                                                                                                                  
-        with open(f'{credential_path}/{name}') as f:                                                                                                                                                               
+    os_env_var = os.environ.get(name)
+    if os_env_var is not None:
+        return os_env_var
+    else:
+        credential_path = os.environ.get('CREDENTIALS_DIRECTORY')
+        with open(f'{credential_path}/{name}') as f:
             credential = f.read().strip()
             return credential
 

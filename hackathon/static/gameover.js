@@ -97,10 +97,11 @@ export class GameWon extends HTMLElement {
         form.formMessage = formMessage;
         form.appendChild(formMessage);
         this.appendChild(form);
+        hcaptchaSitekey = document.querySelector('meta[name="hcaptcha-sitekey"]').getAttribute('content');
         this.hcaptcha.render(
             "hcaptcha",
             {
-                sitekey: "ce7c55e8-26d2-4b54-a2d6-17acaf588408",
+                sitekey: hcaptchaSitekey,
                 theme: "dark",
             }
         );
