@@ -31,7 +31,7 @@ game-won form {
     align-items: center;
 }
 
-game-won > * {
+game-won > *, game-over > * {
     text-align: center;
 }
 
@@ -103,7 +103,7 @@ input[type="number"] {
     justify-content: start;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .radio-container input {

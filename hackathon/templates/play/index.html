@@ -8,27 +8,27 @@
 
 {% block main %}
 <script src="{{ url_for("static", filename="gameover.js") }}" type="module"></script>
-<dialog id="difficultySelection" class="rounded p-4 neon-border" style="max-width: 500px;">
+<dialog id="difficultySelection" class="rounded p-4 neon-border" style="max-width: 550px;">
   <form method="dialog">
     <h4 class="text-center mb-3">Choose Difficulty</h4>
 
     <div class="radio-container">
-      <input class="" type="radio" name="difficulty" value="easy" id="easy">
+      <input class="radio-button" type="radio" name="difficulty" value="easy" id="easy">
       <label class="form-check-label" for="easy">Easy</label>
       <p class="ghost difficulty-description" data-difficulty="easy">8x8 grid, 10 bombs</p>
     </div>
     <div class="radio-container">
-      <input class="" type="radio" name="difficulty" value="medium" id="medium" checked>
+      <input class="radio-button" type="radio" name="difficulty" value="medium" id="medium" checked>
       <label class="form-check-label" for="medium">Medium</label>
       <p class="difficulty-description" data-difficulty="medium">16x16 grid, 40 bombs</p>
     </div>
     <div class="radio-container">
-      <input class="" type="radio" name="difficulty" value="hard" id="hard">
+      <input class="radio-button" type="radio" name="difficulty" value="hard" id="hard">
       <label class="form-check-label" for="hard">Hard</label>
       <p class="ghost difficulty-description" data-difficulty="hard">24x24 grid, 99 bombs</p>
     </div>
     <div class="radio-container">
-      <input class="" type="radio" name="difficulty" value="custom" id="custom">
+      <input class="radio-button" type="radio" name="difficulty" value="custom" id="custom">
       <label class="form-check-label" for="custom">Custom</label>
       <p class="difficulty-description">Set your own grid size and bomb count.</p>
     </div>

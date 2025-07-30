@@ -149,3 +149,17 @@ body {
 .game-info {
     font-size: 20px;
 }
+
+.radio-button {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 8px;
+    border-radius: 50%;
+    border-width: 2px;
+}
+
+.radio-button:checked {
+    background-color: var(--theme-light);
+}

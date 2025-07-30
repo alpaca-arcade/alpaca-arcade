@@ -85,6 +85,7 @@ h1 {
 
 .leaderboard-container h2 {
     font-size: 2rem;
+    margin-top: 0;
 }
 
 .leaderboards {
