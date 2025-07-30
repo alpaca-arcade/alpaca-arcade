@@ -1,11 +1,8 @@
-import logging
 from flask import Blueprint, request, jsonify
 from hackathon.db import get_db
 import requests
 import os
 
-# Setup logging
-logger = logging.getLogger(__name__)
 
 bp = Blueprint("scores", __name__, url_prefix="/scores")
 
@@ -23,10 +20,6 @@ def get_credential(name):
 
 HCAPTCHA_SECRET = get_credential("HCAPTCHA_SECRET")
 HCAPTCHA_VERIFY_URL = "https://api.hcaptcha.com/siteverify"
-
-
-# Add debug output about the environment
-logger.debug(f"HCAPTCHA_SECRET set: {'Yes' if HCAPTCHA_SECRET else 'No'}")
 
 
 @bp.route("/", methods=("GET",))
@@ -52,9 +45,6 @@ def new():
     score = request.json["score"]
     error = None
 
-	# Log the incoming request
-    logger.debug(f"New score submission: game={game}, difficulty={difficulty}, name={name}")
-
     if game not in ["minesweeper"]:
         error = "invalid or missing game"
     if difficulty not in [0, 1, 2]:
@@ -66,8 +56,7 @@ def new():
         error = "invalid score"
 
     hc_token = request.json["h-captcha-response"]
-    logger.debug(f"hCaptcha token received: {bool(hc_token)}")
- 
+
     if hc_token is None:
         error = "Captcha token missing"
 
@@ -77,16 +66,13 @@ def new():
             "response":hc_token,
 			"remoteip": request.remote_addr,
         }
-        logger.debug(f"Sending verification to hCaptcha: ip={request.remote_addr}")
 
         try:
             response = requests.post(url=HCAPTCHA_VERIFY_URL, data=data)
             result = response.json()
-            logger.debug(f"hCaptcha verification result: {result}")
 
             if not result.get("success"):
                 error = f"Captcha failed: {result.get('error-codes', ['unknown error'])}"
-                logger.error(f"hCaptcha verification failed: {result}")
 
             if error is None:
                 score = int(score)
@@ -97,7 +83,6 @@ def new():
                 return jsonify({"saved": False}),
             return jsonify({'success': False, 'message': error}), 403
         except Exception as e:
-            logger.exception(f"Exception during hCaptcha verification: {str(e)}")
             error = f"Verification error: {str(e)}"
     return jsonify({'success': False, 'message': error}), 400
 
