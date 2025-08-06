@@ -4,7 +4,7 @@ import requests
 import os
 
 
-bp = Blueprint("scores", __name__, url_prefix="/scores")
+bp = Blueprint("scores", __name__)
 
 
 def get_credential(name):

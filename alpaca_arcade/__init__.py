@@ -28,9 +28,12 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    from . import home
-    app.register_blueprint(home.bp, url_prefix=application_root)
+    from . import browse
+    app.register_blueprint(browse.bp, url_prefix=application_root)
     app.add_url_rule(application_root, endpoint="index")
+
+    from . import overview
+    app.register_blueprint(overview.bp, url_prefix=application_root+"/overview")
 
     from . import play
     app.register_blueprint(play.bp, url_prefix=application_root+"/play")
