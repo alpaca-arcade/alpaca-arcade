@@ -1,4 +1,4 @@
-from hackathon import create_app
+from alpaca_arcade import create_app
 
 
 def test_config():

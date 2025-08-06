@@ -1,5 +1,5 @@
 import pytest
-from hackathon.db import get_db
+from alpaca_arcade.db import get_db
 
 
 def test_index(client, app):

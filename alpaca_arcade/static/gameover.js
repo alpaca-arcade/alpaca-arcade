@@ -41,7 +41,7 @@ export class GameWon extends HTMLElement {
     }
     async checkHighScores() {
         this.statusMessage.textContent = "Checking high scores...";
-        const url = `/hackathon/scores/?game=minesweeper&difficulty=${this.gameDifficulty}`;
+        const url = `/scores/?game=minesweeper&difficulty=${this.gameDifficulty}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -136,7 +136,7 @@ export class GameWon extends HTMLElement {
         return /^[A-Za-z]{3}$/.test(str);
     }
     async sendScore(payload) {
-        const resource = "/hackathon/scores/new";
+        const resource = "/scores/new";
         const options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },

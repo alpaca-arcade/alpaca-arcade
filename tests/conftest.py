@@ -1,8 +1,8 @@
 import os
 import tempfile
 import pytest
-from hackathon import create_app
-from hackathon.db import get_db, init_db
+from alpaca_arcade import create_app
+from alpaca_arcade.db import get_db, init_db
 from instance.config import MINESWEEPER_SCORES
 
 

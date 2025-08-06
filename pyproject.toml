@@ -1,7 +1,7 @@
 [project]
-name = "hackathon"
-version = "0.0.1"
-description = "hackathon project"
+name = "alpaca-arcade"
+version = "0.1.0"
+description = "Classic games online"
 dependencies = [
     "flask",
     "pytest",
@@ -18,4 +18,4 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["hackathon"]
+source = ["alpaca_arcade"]

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from hackathon.db import get_db
+from alpaca_arcade.db import get_db
 import requests
 import os
 
