@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 from .scores import get_credential, creds_found
 
 
-bp = Blueprint("play", __name__, url_prefix="/play")
+bp = Blueprint("play", __name__)
 
 
 @bp.route("/")
