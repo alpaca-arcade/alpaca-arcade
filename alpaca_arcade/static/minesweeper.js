@@ -559,7 +559,11 @@ function validateCustomDifficulty() {
         if (!input.value) {
             showFieldError(input.id, "Required field for custom");
             isValid = false;
-        } else {
+        } else if (input.value < 2){
+            isValid = false;
+            showFieldError(input.id, "Value has to be 2 or higher")
+        }
+        else {
             hideFieldError(input.id);
         }
     });
@@ -568,7 +572,7 @@ function validateCustomDifficulty() {
     
     // Check bomb count doesn't exceed grid size
     const [rows, cols, bombs] = Array.from(inputs).map(input => parseInt(input.value));
-    if (bombs >= rows * cols) {
+    if (bombs >= (rows * cols - 1)) {
         showFieldError("bC", `Bomb count exceeds grid, MAX: ${rows * cols - 1}`);
         return false;
     }
@@ -594,7 +598,7 @@ function showFieldError(fieldId, message) {
  */
 function hideFieldError(fieldId) {
     const errorMap = { "rC": "row-count-error", "cC": "col-count-error", "bC": "bomb-count-error" };
-    document.getElementById(errorMap[fieldId]).classList.add("ghost");
+    document.getElementById(errorMap[fieldId]).innerHTML = "";
 }
 
 /**
@@ -604,7 +608,6 @@ function hideFieldError(fieldId) {
 function applyDifficultySelection(difficultyValue) {
     difficulty = difficultyValue;
     document.querySelector("#current-difficulty").innerHTML = `Difficulty: ${capitalize(difficulty)}`;
-    document.getElementById("bomb-count-error").classList.add("ghost");
     document.getElementById("difficultySelection").close();
     initGame();
 }
