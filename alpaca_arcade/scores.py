@@ -5,18 +5,23 @@ import os
 
 
 bp = Blueprint("scores", __name__, url_prefix="/scores")
+creds_found: bool = True
 
 
 def get_credential(name):
-    os_env_var = os.environ.get(name)
-    if os_env_var is not None:
-        return os_env_var
-    else:
-        credential_path = os.environ.get('CREDENTIALS_DIRECTORY')
-        with open(f'{credential_path}/{name}') as f:
-            credential = f.read().strip()
-            return credential
-
+    try:
+        os_env_var = os.environ.get(name)
+        if os_env_var is not None:
+            return os_env_var
+        else:
+            credential_path = os.environ.get('CREDENTIALS_DIRECTORY')
+            with open(f'{credential_path}/{name}') as f:
+                credential = f.read().strip()
+                return credential
+    except:
+        global creds_found
+        creds_found = False
+        return "dev"
 
 HCAPTCHA_SECRET = get_credential("HCAPTCHA_SECRET")
 HCAPTCHA_VERIFY_URL = "https://api.hcaptcha.com/siteverify"

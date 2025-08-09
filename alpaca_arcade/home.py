@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from .scores import get_scores
+from .scores import get_scores, creds_found
 
 
 bp = Blueprint("home", __name__)
@@ -15,4 +15,6 @@ def index():
         minesweeper_scores_easy=minesweeper_scores_easy,
         minesweeper_scores_medium=minesweeper_scores_medium,
         minesweeper_scores_hard=minesweeper_scores_hard,
+        hcaptcha_credentials_found=creds_found
+
     )
