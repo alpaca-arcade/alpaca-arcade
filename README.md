@@ -1,6 +1,6 @@
 # Alpaca Arcade
 
-![Screenshot](https://alpaca_arcade.com/static/screenshot.png)
+![Screenshot](https://github.com/alpaca-arcade/alpaca-arcade/blob/main/alpaca_arcade/static/screenshot.png?raw=true)
 
 ## Technologies
 
