@@ -1,8 +1,6 @@
-import os
 import sqlite3
 import click
 from flask import current_app, g
-import random
 
 
 def get_db():
@@ -26,7 +24,10 @@ def init_db():
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf-8"))
 
-    minesweeper_scores = current_app.config["MINESWEEPER_SCORES"]
+    try:
+        minesweeper_scores = current_app.config["MINESWEEPER_SCORES"]
+    except:
+        return
     if minesweeper_scores is not None:
         db.executemany("INSERT INTO scores (game, difficulty, name, score) VALUES ('minesweeper', ?, ?, ?)", (minesweeper_scores))
         db.commit()
