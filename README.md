@@ -96,13 +96,13 @@ pip install -e .
 ### 3. Run the App
 
 ```bash
-flask --app alpaca-arcade run
+flask --app alpaca_arcade run
 ```
 Visit [http://localhost:5000](http://localhost:5000) and start sweeping!
 
 #### (Optional) Run via Gunicorn
 Production-style:
 ```bash
-gunicorn -w 4 "alpaca-arcade:create_app()"
+gunicorn -w 4 "alpaca_arcade:create_app()"
 ```
 
