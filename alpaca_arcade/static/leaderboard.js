@@ -1,58 +1,87 @@
+appendHighScoreTables();
+
+/**
+*
+* Creates and appends the leaderboards to the DOM
+* @returns {void} - Modifies DOM-element
+*/
+function appendHighScoreTables(){
 const container = document.querySelector("div.leaderboards");
+const highScoreLists = {"Easy": minesweeperScoresEasy, "Medium": minesweeperScoresMedium, "Hard": minesweeperScoresHard}
 
-const minesweeperEasy = newHighScoreTable("Easy", sortScores(minesweeperScoresEasy));
-container.appendChild(minesweeperEasy);
+for (const [difficulty, scoreList] of Object.entries(highScoreLists)) {
+    sortScores(scoreList)
 
-const minesweeperMedium = newHighScoreTable("Medium", sortScores(minesweeperScoresMedium));
-container.appendChild(minesweeperMedium);
-
-const minesweeperHard = newHighScoreTable("Hard", sortScores(minesweeperScoresHard));
-container.appendChild(minesweeperHard);
-
-function newHighScoreTable(difficulty, scores) {
-    const container = document.createElement("div");
-    container.classList.add("leaderboard");
-    const heading = document.createElement("h3");
-    heading.textContent = difficulty;
-    container.appendChild(heading);
-    const table = document.createElement("table");
-    thead = document.createElement("thead");
-    tbody = document.createElement("tbody");
-
-    theadrow = document.createElement("tr");
-    column_names = Object.keys(scores[0]);
-    for (column_name of column_names) {
-        th = document.createElement("th");
-        th.textContent = capitalize(column_name);
-        theadrow.appendChild(th);
+    const lbContainer = document.createElement("div");
+    lbContainer.classList.add("leaderboard");
+    lbContainer.innerHTML = `
+    <h3>${difficulty}</h3>
+    <table>
+        ${getTableHead(scoreList[0])}
+        ${getTableBody(scoreList)}
+        </table>
+    `
+    container.appendChild(lbContainer);
     }
-    thead.appendChild(theadrow);
-
-    for (score of scores) {
-        tbodyrow = document.createElement("tr");
-        score_name = document.createElement("td");
-        score_name.classList.add("name");
-        score_name.textContent = score.name;
-        tbodyrow.appendChild(score_name);
-        score_value = document.createElement("td");
-        score_value.classList.add("value");
-        score_value.textContent = score["time"];
-        tbodyrow.appendChild(score_value);
-        tbody.appendChild(tbodyrow);
-    }
-
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    container.appendChild(table);
-    return container;
-
 }
 
+/**
+ * Creates and adds a headrow to the table
+ * @param {Object} scoreObject - A score object to extract column names from
+ * @returns {string} - Returns stringified tablehead
+ */
+function getTableHead(scoreList){
+    if (!scoreList) return "";
+
+    const column_names = Object.keys(scoreList);
+    let headHTML = '<thead><tr>';
+    
+    for (const column_name of column_names) {
+        headHTML += `<th>${capitalize(column_name)}</th>`;
+    }
+    
+    headHTML += '</tr></thead>';
+    return headHTML;
+}
+
+/**
+ * Creates and adds a table body to the table
+ * @param {Array<{name: string, time: number}>} scoreList - Array of Score objects
+ * @returns {string} - Returns stringified tableBody
+ */
+function getTableBody(scoreList){
+    let bodyHTML = '<tbody>';
+    
+    if (scoreList.length == 0) {
+        bodyHTML += '<tr><td>No data yet</td></tr>';
+    } else {
+        for (const score of scoreList) {
+            bodyHTML += `<tr>
+                <td class="name">${score.name}</td>
+                <td class="value">${score.time}</td>
+            </tr>`;
+        }
+    }
+    
+    bodyHTML += '</tbody>';
+    return bodyHTML;
+}
+
+/**
+ * Capitalizes the first letter of a given string
+ * @param {string} str 
+ * @returns {string}
+ */
 function capitalize(str) {
   if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
+/**
+ * Sorts an array of scores in-place by time (ascending)
+ * @param {Array<{name: string, time: number}>} scores - Array of score objects
+ * @returns {Array} - Returns the same array, now sorted by time
+ */
 function sortScores(scores) {
     return scores.sort((a, b) => a.time - b.time);
 }

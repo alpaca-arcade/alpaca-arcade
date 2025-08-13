@@ -7,14 +7,10 @@ bp = Blueprint("overview", __name__)
 
 @bp.route("/")
 def index():
-    minesweeper_scores_easy = get_scores("minesweeper", 0)
-    minesweeper_scores_medium = get_scores("minesweeper", 1)
-    minesweeper_scores_hard = get_scores("minesweeper", 2)
-    return render_template(
-        "overview/index.html",
-        minesweeper_scores_easy=minesweeper_scores_easy,
-        minesweeper_scores_medium=minesweeper_scores_medium,
-        minesweeper_scores_hard=minesweeper_scores_hard,
-        hcaptcha_credentials_found=creds_found
-
-    )
+    context = {
+    'minesweeper_scores_easy': get_scores("minesweeper", 0),
+    'minesweeper_scores_medium': get_scores("minesweeper", 1),
+    'minesweeper_scores_hard': get_scores("minesweeper", 2),
+    'hcaptcha_credentials_found': creds_found
+    }
+    return render_template("overview/index.html", **context)
