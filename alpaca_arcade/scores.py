@@ -4,8 +4,8 @@ import requests
 import os
 
 
-bp = Blueprint("scores", __name__, url_prefix="/scores")
 creds_found: bool = True
+bp = Blueprint("scores", __name__)
 
 
 def get_credential(name):

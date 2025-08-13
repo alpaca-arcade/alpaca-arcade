@@ -1,0 +1,84 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+	font-family: Bitcount;
+    background: radial-gradient(circle at top left, white 0, var(--theme-light) 5%, transparent 40%),
+                radial-gradient(circle at top right, white 0, var(--theme-light) 5%, transparent 40%);
+}
+
+.hero {
+    height: 20vh;
+}
+
+h1 {
+    font-size: 5rem;
+    color: var(--theme-dark);
+}
+
+.lit {
+    text-shadow: var(--theme-accent) 1px 0 5px;
+    letter-spacing: 0.2rem;
+}
+
+.game-choices {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 30px;
+}
+
+.game-choice {
+    color: var(--theme-dark);
+    width: 370px;
+    height: 230px;
+    background: linear-gradient(to bottom, white 0, var(--theme-light) 2%, transparent 10%),
+                radial-gradient(circle at top left, white 0, var(--theme-light) 4%, transparent 10%),
+                radial-gradient(circle at top right, white 0, var(--theme-light) 4%, transparent 10%);
+    border: 3px solid var(--theme-light);
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.game-choice > * {
+    margin: 0;
+}
+
+.game-choice > h2 {
+    text-align: center;
+}
+
+.choose-button {
+    padding: 5px 8px;
+    border: 1px solid var(--theme-light);
+    background: linear-gradient(to bottom, white 0, var(--theme-light) 2%, transparent 30%),
+                linear-gradient(to top, white 0, var(--theme-light) 2%, transparent 30%);
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 10px;
+    color: var(--theme-dark);
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.choose-button:focus {
+    outline: none;
+}
+
+.choose-button:hover {
+    border: 1px solid var(--theme-accent);
+    color: var(--theme-accent);
+}
+
+.choose-button:active {
+    box-shadow: 0px 0px 9px white;
+    border: 1px inset var(--theme-light);
+    background: radial-gradient(circle at center, white 0, var(--theme-light) 80%, transparent 100%);
+}
