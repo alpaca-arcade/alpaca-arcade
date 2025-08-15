@@ -99,7 +99,6 @@ function initGame() {
     resetGameState();
     const gameConfig = getDifficultyConfig(difficulty);
     setupGameGrid(gameConfig);
-    placeMines();
     startGameTimer();
 }
 
@@ -229,6 +228,7 @@ function createSingleCell(r, c) {
     cell.dataset.row = r;
     cell.dataset.col = c;
     
+    cell.addEventListener('click', firstClick)
     cell.addEventListener('click', () => revealCell(r, c));
     cell.addEventListener('contextmenu', (e) => {
         e.preventDefault();
@@ -394,17 +394,31 @@ function adjustBombCounter(value) {
  * 
  * @returns {void}
  */
-function placeMines() {
+function placeMines(index) {
+    const row = Math.floor(index / cols);
+    const col = index % cols;
+
+    const fcPos = row + ',' + col
     while (minePositions.size < mines) {
         const r = Math.floor(Math.random() * rows);
         const c = Math.floor(Math.random() * cols);
         const pos = r + ',' + c;
-        if (!minePositions.has(pos)) {
+        if (!minePositions.has(pos) && pos != fcPos) {
             minePositions.add(pos);
         }
     }
 }
 
+/**
+ * Activates on the first reveal of a cell, to ensure no bombs are triggered before the game even really starts
+ * @param {Event} - event via the eventHandler
+ */
+function firstClick(event){
+    const indexOfClick = Array.from(event.target.parentNode.children).indexOf(event.target)
+    const boardTiles = document.querySelector(".board").children
+    Array.from(boardTiles).forEach(tile => tile.removeEventListener('click', firstClick));
+    placeMines(indexOfClick)
+}
 /**
  * Counts the number of mines adjacent to a given cell.
  * 
