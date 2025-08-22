@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block head %}
+<script src="https://js.hcaptcha.com/1/api.js?render=explicit" async defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='game.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='gameover.css') }}">
+{% endblock %}
+{%block title %}Breakout{% endblock %}
+
+{% block main %}
+<div class="game-container">
+    <a href="/">
+        <img src="/static/images/logo_mini.svg" alt="Alpaca Arcade logo mini" width=80 height=80>
+    </a>
+    <a class="game-button back-button" href="{{ url_for("overview.index", game="breakout") }}">Back to Leaderboard</a>
+</div>
+{% endblock %}

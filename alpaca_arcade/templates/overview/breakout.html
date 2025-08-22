@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
+{% endblock %}
+
+{% block main %}
+<div class="main-container">
+    <a href="/">
+        <img src="/static/images/logo_mini.svg" alt="Alpaca Arcade logo mini" width=80 height=80>
+    </a>
+    <div class="hero">
+        <h1 class="lit">{% block title %}BREAKOUT{% endblock %}</h1>
+    </div>
+    <div>
+        <a class="play-button" href="{{ url_for('play.index', game='breakout') }}"></a>
+        <p class="play-button-label lit">PLAY</p>
+    </div>
+    <div class="leaderboard-container neon-border">
+        <h2>Leaderboard</h2>
+        <div class="leaderboards"></div>
+    </div>
+</div>
+
+<!-- <script src="{{ url_for('static', filename='leaderboard.js') }}"></script>
+-->
+    
+{% endblock %}

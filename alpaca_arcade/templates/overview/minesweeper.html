@@ -16,7 +16,7 @@
         <h1 class="lit">{% block title %}MINESWEEPER{% endblock %}</h1>
     </div>
     <div>
-        <a class="play-button" href="{{ url_for('play.index') }}"></a>
+        <a class="play-button" href="{{ url_for('play.index', game='minesweeper') }}"></a>
         <p class="play-button-label lit">PLAY</p>
     </div>
     <div class="leaderboard-container neon-border">

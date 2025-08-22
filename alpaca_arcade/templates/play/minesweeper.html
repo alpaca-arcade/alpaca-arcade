@@ -77,7 +77,7 @@
     <a href="/">
         <img src="/static/images/logo_mini.svg" alt="Alpaca Arcade logo mini" width=80 height=80>
     </a>
-    <a class="game-button back-button" href="{{ url_for("overview.index") }}">Back to Leaderboard</a>
+    <a class="game-button back-button" href="{{ url_for("overview.index", game="minesweeper") }}">Back to Leaderboard</a>
   <div class="game-frame p-4 rounded shadow-lg">
       <div class="difficulty-display">
         <span class="text-center text-light" id="current-difficulty">Difficulty: Medium</span>
