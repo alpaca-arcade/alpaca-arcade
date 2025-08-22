@@ -14,7 +14,12 @@
         <article class="game-choice" data-game="minesweeper">
             <h2 class="lit">Minesweeper</h2>
             <p>The classic puzzle game of survival. Flag the mines and ensure a safe path for the rest of mankind.</p>
-            <a class="choose-button" href="overview/?game=minesweeper">Choose</a>
+            <a class="choose-button" href="{{ url_for("overview.index", game="minesweeper") }}">Choose</a>
+        </article>
+        <article class="game-choice" data-game="breakout">
+            <h2 class="lit">Breakout</h2>
+            <p>Keep your missile in play and collect special abilities to break every barrier. Avoid debilitating drops.</p>
+            <a class="choose-button" href="{{ url_for("overview.index", game="breakout") }}">Choose</a>
         </article>
     </div>
 </div>

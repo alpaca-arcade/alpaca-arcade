@@ -28,3 +28,9 @@ dialog {
 .display-none {
     display: none;
 }
+
+.lit {
+    text-shadow: var(--theme-accent) 1px 0 1px;
+    letter-spacing: 0.2rem;
+}
+
