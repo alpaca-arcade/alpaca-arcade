@@ -1,2 +1,0 @@
-APPLICATION_ROOT = "/"
-testing additionstesting additions
