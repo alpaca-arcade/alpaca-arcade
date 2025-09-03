@@ -28,7 +28,9 @@ cd alpaca-arcade
 python3 -m venv .venv
 source .venv/bin/activate
 ```
+
 From within the (.venv) use:
+
 ```bash
 mkdir instance
 cd instance
@@ -58,15 +60,32 @@ pip install -e .
    ```
 
 2. **hCaptcha environment variables**
-   Make your hCaptcha secret key an environment variable called `HCAPTCHA_SECRET`.
 
-   Make your hCaptcha site key an environment variable called `HCAPTCHA_SITEKEY`.
+   You need to obtain hCaptcha credentials by creating an account at https://www.hcaptcha.com/
 
-3. **Initialize the database:**
-  Run the code below:
+   Once you have your credentials, create the environment variables:
+
+   - `HCAPTCHA_SITEKEY="your_hcaptcha_sitekey"`
+   - `HCAPTCHA_SECRET_KEY="your_hcaptcha_secret_key"`
+
+   People do this in different ways. Follow your own preference or use our provided script. This offers a quick one-time solution for the current terminal session:
 
    ```bash
-   flask --app alpaca-arcade init-db
+   source hcaptcha.sh <your_hcaptcha_sitekey> <your_hcaptcha_secret_key>
+   ```
+
+3. **Initialize the database:**
+   The database requires sqlite3:
+
+   ```bash
+   sudo apt update
+   sudo apt install sqlite3
+   ```
+
+   Run the code below:
+
+   ```bash
+   flask --app alpaca_arcade init-db
    ```
 
 ### 3. Run the App
@@ -74,10 +93,13 @@ pip install -e .
 ```bash
 flask --app alpaca_arcade run
 ```
+
 Visit [http://localhost:5000](http://localhost:5000) and start sweeping!
 
 #### (Optional) Run via Gunicorn
+
 Production-style:
+
 ```bash
 gunicorn -w 4 "alpaca_arcade:create_app()"
 ```
