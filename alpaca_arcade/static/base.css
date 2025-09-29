@@ -34,3 +34,36 @@ dialog {
     letter-spacing: 0.2rem;
 }
 
+.error-container {
+    height: 100vh;
+    display: grid;
+    align-content: center;
+    text-align: center;
+}
+
+.error-heading {
+    font-size: 3rem;
+    color: var(--theme-dark);
+}
+
+.error-message {
+    color: white;
+}
+
+.btn-error-back {
+    padding: 5px 8px;
+    border: 1px solid var(--theme-light);
+    background: linear-gradient(to bottom, white 0, var(--theme-light) 2%, transparent 30%),
+                linear-gradient(to top, white 0, var(--theme-light) 2%, transparent 30%);
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 10px;
+    color: var(--theme-dark);
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.btn-error-back:hover {
+  border: 1px solid var(--theme-accent);
+  color: var(--theme-accent);
+}
