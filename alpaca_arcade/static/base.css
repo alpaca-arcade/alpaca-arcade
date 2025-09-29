@@ -50,20 +50,34 @@ dialog {
     color: white;
 }
 
-.btn-error-back {
-    padding: 5px 8px;
+.error-links {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 50%;
+    margin: 20px auto;
+}
+
+.error-link {
+    /*
     border: 1px solid var(--theme-light);
     background: linear-gradient(to bottom, white 0, var(--theme-light) 2%, transparent 30%),
                 linear-gradient(to top, white 0, var(--theme-light) 2%, transparent 30%);
-    width: fit-content;
-    margin: 0 auto;
+    */
+    /*
     border-radius: 10px;
+    */
     color: var(--theme-dark);
     text-decoration: none;
     font-size: 1.1em;
 }
 
-.btn-error-back:hover {
+.error-link:hover {
+/*
   border: 1px solid var(--theme-accent);
+  */
   color: var(--theme-accent);
 }
