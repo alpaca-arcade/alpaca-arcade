@@ -62,22 +62,11 @@ dialog {
 }
 
 .error-link {
-    /*
-    border: 1px solid var(--theme-light);
-    background: linear-gradient(to bottom, white 0, var(--theme-light) 2%, transparent 30%),
-                linear-gradient(to top, white 0, var(--theme-light) 2%, transparent 30%);
-    */
-    /*
-    border-radius: 10px;
-    */
     color: var(--theme-dark);
     text-decoration: none;
     font-size: 1.1em;
 }
 
 .error-link:hover {
-/*
-  border: 1px solid var(--theme-accent);
-  */
   color: var(--theme-accent);
 }
