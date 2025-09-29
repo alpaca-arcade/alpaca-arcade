@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="error-container">
+    <a href="/">
+        <img src="/static/images/logo_mini.svg" alt="Alpaca Arcade logo mini" width=80 height=80>
+    </a>
+    <h1 class="error-heading lit">{% block title %}Not Found{% endblock %}</h1>
+    <p class="error-message">The requested resource does not exist.</p>
+    <div class="error-links">
+        <a class="error-link" href="{{ url_for("browse.index") }}">Browse</a><a class="error-link" href="{{ url_for("overview.index", game="minesweeper") }}">Minesweeper</a><a class="error-link" href="{{ url_for("overview.index", game="breakout") }}">Breakout</a>
+    </div>
+<div>
+{% endblock %}

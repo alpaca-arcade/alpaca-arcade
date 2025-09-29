@@ -34,3 +34,39 @@ dialog {
     letter-spacing: 0.2rem;
 }
 
+.error-container {
+    height: 100vh;
+    display: grid;
+    align-content: center;
+    text-align: center;
+}
+
+.error-heading {
+    font-size: 3rem;
+    color: var(--theme-dark);
+}
+
+.error-message {
+    color: white;
+}
+
+.error-links {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 50%;
+    margin: 20px auto;
+}
+
+.error-link {
+    color: var(--theme-dark);
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.error-link:hover {
+  color: var(--theme-accent);
+}

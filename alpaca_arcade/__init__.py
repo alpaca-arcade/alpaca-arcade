@@ -38,9 +38,11 @@ def create_app(test_config=None):
     from . import play
     app.register_blueprint(play.bp, url_prefix=application_root+"/play")
 
-    from .import scores
+    from . import scores
     app.register_blueprint(scores.bp, url_prefix=application_root+"/scores")
 
+    from .errors import page_not_found 
+    app.register_error_handler(404, page_not_found)
 
     return app
 
