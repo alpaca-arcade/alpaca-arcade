@@ -163,3 +163,8 @@ body {
 .radio-button:checked {
     background-color: var(--theme-light);
 }
+
+.breakout-container {
+    width: 50vw;
+    height: 50vh;
+}
