@@ -1,7 +1,11 @@
 class ExampleScene extends Phaser.Scene {
     ball;
-    preload() {}
-    create() {}
+    preload() {
+        this.load.image("ball", "/static/images/ball.png");
+    }
+    create() {
+        this.ball = this.add.sprite(50, 50, "ball");
+    }
     update() {}
 }
 
@@ -15,6 +19,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
+    backgroundColor: "#eeeeee",
 };
 
 const game = new Phaser.Game(config);
