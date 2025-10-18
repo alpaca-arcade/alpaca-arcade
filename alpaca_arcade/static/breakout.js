@@ -5,6 +5,7 @@ class ExampleScene extends Phaser.Scene {
     preload() {
         this.load.image("ball", "/static/images/ball.png");
         this.load.image("paddle", "/static/images/paddle.png");
+        this.load.image("brick", "/static/images/brick.png");
     }
     create() {
         this.ball = this.add.sprite(
@@ -25,6 +26,7 @@ class ExampleScene extends Phaser.Scene {
         this.physics.add.existing(this.paddle);
         this.paddle.body.setImmovable(true);
         this.physics.world.checkCollision.down = false;
+        this.initBricks();
     }
     update() {
         this.physics.collide(this.ball, this.paddle);
@@ -36,6 +38,32 @@ class ExampleScene extends Phaser.Scene {
         if (ballIsOutOfBounds) {
             alert("Game Over!");
             location.reload();
+        }
+    }
+    initBricks() {
+        const bricksLayout = {
+            width: 50,
+            height: 20,
+            count: {
+                row: 3,
+                col: 12,
+            },
+            offset: {
+                top: 50,
+                left: 60,
+            },
+            padding: 10,
+        }
+        this.bricks = this.add.group();
+        for (let c = 0; c < bricksLayout.count.col; c++) {
+            for (let r = 0; r < bricksLayout.count.row; r++) {
+                const brickX = c * (bricksLayout.width + bricksLayout.padding) + bricksLayout.offset.left;
+                const brickY = r * (bricksLayout.height + bricksLayout.padding) + bricksLayout.offset.top;
+                const newBrick = this.add.sprite(brickX, brickY, "brick");
+                this.physics.add.existing(newBrick);
+                newBrick.body.setImmovable(true);
+                this.bricks.add(newBrick);
+            }
         }
     }
 }
