@@ -30,6 +30,9 @@ class ExampleScene extends Phaser.Scene {
     }
     update() {
         this.physics.collide(this.ball, this.paddle);
+        this.physics.collide(this.ball, this.bricks, (ball, brick) => 
+            this.hitBrick(ball, brick),
+        );
         this.paddle.x = this.input.x || this.scale.width * 0.5;
         const ballIsOutOfBounds = !Phaser.Geom.Rectangle.Overlaps(
             this.physics.world.bounds,
@@ -65,6 +68,9 @@ class ExampleScene extends Phaser.Scene {
                 this.bricks.add(newBrick);
             }
         }
+    }
+    hitBrick(ball, brick) {
+        brick.destroy();
     }
 }
 
