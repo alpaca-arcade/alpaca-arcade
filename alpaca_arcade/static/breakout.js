@@ -4,6 +4,9 @@ class ExampleScene extends Phaser.Scene {
     bricks;
     scoreText;
     score = 0;
+    lives = 3;
+    livesText;
+    lifeLostText;
     preload() {
         this.load.image("ball", "/static/images/ball.png");
         this.load.image("paddle", "/static/images/paddle.png");
@@ -16,7 +19,7 @@ class ExampleScene extends Phaser.Scene {
             "ball",
         );
         this.physics.add.existing(this.ball);
-        this.ball.body.setVelocity(150, -150);
+        this.ball.body.setVelocity(250, -250);
         this.ball.body.setCollideWorldBounds(true, 1, 1);
         this.ball.body.setBounce(1);
         this.paddle = this.add.sprite(
@@ -29,10 +32,23 @@ class ExampleScene extends Phaser.Scene {
         this.paddle.body.setImmovable(true);
         this.physics.world.checkCollision.down = false;
         this.initBricks();
-        this.scoreText = this.add.text(5, 5, "Points: 0", {
-            font: "18px Arial",
-            color: "#0095dd",
-        });
+        const textStyle = { font: "18px Arial", fill: "#0095dd" };
+        this.scoreText = this.add.text(5, 5, "Points: 0", textStyle);
+        this.livesText = this.add.text(
+            this.scale.width - 5,
+            5,
+            `Lives: ${this.lives}`,
+            textStyle,
+        );
+        this.livesText.setOrigin(1, 0);
+        this.lifeLostText = this.add.text(
+            this.scale.width * 0.5,
+            this.scale.height * 0.5,
+            "Life lost, click to continue",
+            textStyle,
+        );
+        this.lifeLostText.setOrigin(0.5, 0.5);
+        this.lifeLostText.visible = false;
     }
     update() {
         this.physics.collide(this.ball, this.paddle);
@@ -45,7 +61,10 @@ class ExampleScene extends Phaser.Scene {
             this.ball.getBounds(),
         );
         if (ballIsOutOfBounds) {
-            alert("Game Over!");
+            this.ballLeaveScreen();
+        }
+        if (this.bricks.countActive() === 0) {
+            alert("You won the game, congratulations!");
             location.reload();
         }
     }
@@ -79,6 +98,24 @@ class ExampleScene extends Phaser.Scene {
         brick.destroy();
         this.score += 10;
         this.scoreText.setText(`Points: ${this.score}`);
+    }
+    ballLeaveScreen() {
+        this.lives--;
+        if (this.lives > 0) {
+            this.livesText.setText(`Lives: ${this.lives}`);
+            this.lifeLostText.visible = true;
+            this.ball.body.reset(this.scale.width * 0.5, this.scale.height - 25);
+            this.input.once(
+                "pointerdown",
+                () => {
+                    this.lifeLostText.visible = false;
+                    this.ball.body.setVelocity(250, -250);
+                },
+                this,
+            );
+        } else {
+            location.reload();
+        }
     }
 }
 
