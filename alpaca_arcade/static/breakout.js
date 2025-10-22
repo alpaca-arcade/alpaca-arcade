@@ -11,6 +11,10 @@ class ExampleScene extends Phaser.Scene {
         this.load.image("ball", "/static/images/ball.png");
         this.load.image("paddle", "/static/images/paddle.png");
         this.load.image("brick", "/static/images/brick.png");
+        this.load.spritesheet("wobble", "/static/images/wobble.png", {
+            frameWidth: 20,
+            frameHeight: 20,
+        });
     }
     create() {
         this.ball = this.add.sprite(
@@ -18,6 +22,13 @@ class ExampleScene extends Phaser.Scene {
             this.scale.height - 25,
             "ball",
         );
+        this.ball.anims.create({
+            key: "wobble",
+            frameRate: 24,
+            frames: this.anims.generateFrameNumbers("wobble", {
+                frames: [0, 1, 0, 2, 0, 1, 0, 2, 0],
+            })
+        });
         this.physics.add.existing(this.ball);
         this.ball.body.setVelocity(250, -250);
         this.ball.body.setCollideWorldBounds(true, 1, 1);
@@ -51,7 +62,9 @@ class ExampleScene extends Phaser.Scene {
         this.lifeLostText.visible = false;
     }
     update() {
-        this.physics.collide(this.ball, this.paddle);
+        this.physics.collide(this.ball, this.paddle, (ball, paddle) => 
+            this.hitPaddle(ball, paddle),
+        );
         this.physics.collide(this.ball, this.bricks, (ball, brick) => 
             this.hitBrick(ball, brick),
         );
@@ -94,8 +107,25 @@ class ExampleScene extends Phaser.Scene {
             }
         }
     }
+    hitPaddle(ball, paddle) {
+        this.ball.anims.play("wobble");
+    }
     hitBrick(ball, brick) {
-        brick.destroy();
+        this.ball.anims.play("wobble");
+        const destroyTween = this.tweens.add({
+            targets: brick,
+            ease: "Linear",
+            repeat: 0,
+            duration: 200,
+            props: {
+                scaleX: 0,
+                scaleY: 0,
+            },
+            onComplete() {
+                brick.destroy();
+            },
+        });
+        destroyTween.play();
         this.score += 10;
         this.scoreText.setText(`Points: ${this.score}`);
     }
