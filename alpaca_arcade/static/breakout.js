@@ -7,6 +7,8 @@ class ExampleScene extends Phaser.Scene {
     lives = 3;
     livesText;
     lifeLostText;
+    playing = false;
+    startButton;
     preload() {
         this.load.image("ball", "/static/images/ball.png");
         this.load.image("paddle", "/static/images/paddle.png");
@@ -14,6 +16,10 @@ class ExampleScene extends Phaser.Scene {
         this.load.spritesheet("wobble", "/static/images/wobble.png", {
             frameWidth: 20,
             frameHeight: 20,
+        });
+        this.load.spritesheet("button", "/static/images/button.png", {
+            frameWidth: 120,
+            frameHeight: 40,
         });
     }
     create() {
@@ -30,7 +36,6 @@ class ExampleScene extends Phaser.Scene {
             })
         });
         this.physics.add.existing(this.ball);
-        this.ball.body.setVelocity(250, -250);
         this.ball.body.setCollideWorldBounds(true, 1, 1);
         this.ball.body.setBounce(1);
         this.paddle = this.add.sprite(
@@ -60,6 +65,41 @@ class ExampleScene extends Phaser.Scene {
         );
         this.lifeLostText.setOrigin(0.5, 0.5);
         this.lifeLostText.visible = false;
+        this.startButton = this.add.sprite(
+            this.scale.width * 0.5,
+            this.scale.height * 0.5,
+            "button",
+            0,
+        );
+        this.startButton.setInteractive();
+        this.startButton.on(
+            "pointerover",
+            () => {
+                this.startButton.setFrame(1);
+            },
+            this,
+        );
+        this.startButton.on(
+            "pointerdown",
+            () => {
+                this.startButton.setFrame(2);
+            },
+            this,
+        );
+        this.startButton.on(
+            "pointerout",
+            () => {
+                this.startButton.setFrame(0);
+            },
+            this,
+        );
+        this.startButton.on(
+            "pointerup",
+            () => {
+                this.startGame();
+            },
+            this,
+        );
     }
     update() {
         this.physics.collide(this.ball, this.paddle, (ball, paddle) => 
@@ -68,7 +108,9 @@ class ExampleScene extends Phaser.Scene {
         this.physics.collide(this.ball, this.bricks, (ball, brick) => 
             this.hitBrick(ball, brick),
         );
-        this.paddle.x = this.input.x || this.scale.width * 0.5;
+        if (this.playing) {
+            this.paddle.x = this.input.x || this.scale.width * 0.5;
+        }
         const ballIsOutOfBounds = !Phaser.Geom.Rectangle.Overlaps(
             this.physics.world.bounds,
             this.ball.getBounds(),
@@ -146,6 +188,11 @@ class ExampleScene extends Phaser.Scene {
         } else {
             location.reload();
         }
+    }
+    startGame() {
+        this.startButton.destroy();
+        this.ball.body.setVelocity(250, -250);
+        this.playing = true;
     }
 }
 
