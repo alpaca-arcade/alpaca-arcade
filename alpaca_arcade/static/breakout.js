@@ -151,6 +151,7 @@ class ExampleScene extends Phaser.Scene {
     }
     hitPaddle(ball, paddle) {
         this.ball.anims.play("wobble");
+        ball.body.velocity.x = -5 * (paddle.x - ball.x);
     }
     hitBrick(ball, brick) {
         this.ball.anims.play("wobble");
