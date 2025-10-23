@@ -11,7 +11,7 @@ class ExampleScene extends Phaser.Scene {
     startButton;
     preload() {
         this.load.image("ball", "/static/images/ball.png");
-        this.load.image("paddle", "/static/images/paddle.png");
+        this.load.image("paddle", "/static/images/breakout_paddle_80x10.png");
         this.load.image("brick", "/static/images/brick.png");
         this.load.spritesheet("wobble", "/static/images/wobble.png", {
             frameWidth: 20,
