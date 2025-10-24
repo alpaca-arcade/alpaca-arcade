@@ -128,13 +128,13 @@ class ExampleScene extends Phaser.Scene {
             height: 20,
             count: {
                 row: 3,
-                col: 12,
+                col: 15,
             },
             offset: {
                 top: 50,
-                left: 60,
+                left: 50,
             },
-            padding: 10,
+            padding: 0,
         }
         this.bricks = this.add.group();
         for (let c = 0; c < bricksLayout.count.col; c++) {
