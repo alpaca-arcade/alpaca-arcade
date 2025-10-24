@@ -119,7 +119,6 @@ class ExampleScene extends Phaser.Scene {
             this.ballLeaveScreen();
         }
         if (this.bricks.countActive() === 0) {
-            alert("You won the game, congratulations!");
             location.reload();
         }
     }
