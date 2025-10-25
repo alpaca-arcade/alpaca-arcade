@@ -56,7 +56,9 @@ h1 {
     gap: 10px;
     color: white;
     width: 40vw;
-    overflow: scroll;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--theme-light) transparent;
     height: 30vh;
     align-items: center;
     justify-content: space-evenly;
