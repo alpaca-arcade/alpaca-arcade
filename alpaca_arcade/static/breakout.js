@@ -10,7 +10,7 @@ class ExampleScene extends Phaser.Scene {
     playing = false;
     startButton;
     preload() {
-        this.load.image("ball", "/static/images/ball.png");
+        this.load.image("ball", "/static/images/breakout_ball_15x15.svg");
         this.load.image("paddle", "/static/images/breakout_paddle_80x10.png");
         this.load.image("brick", "/static/images/breakout_brick_50x20.png");
         this.load.spritesheet("wobble", "/static/images/wobble.png", {
@@ -149,13 +149,13 @@ class ExampleScene extends Phaser.Scene {
         }
     }
     hitPaddle(ball, paddle) {
-        this.ball.anims.play("wobble");
+        // this.ball.anims.play("wobble");
         if (ball.x < paddle.x - paddle.displayWidth / 4 || ball.x > paddle.x + paddle.displayWidth / 4) {
             this.ball.body.velocity.x = -5 * (paddle.x - ball.x);
         }
     }
     hitBrick(ball, brick) {
-        this.ball.anims.play("wobble");
+        // this.ball.anims.play("wobble");
         const destroyTween = this.tweens.add({
             targets: brick,
             ease: "Linear",
