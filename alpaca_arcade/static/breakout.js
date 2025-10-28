@@ -1,3 +1,5 @@
+import { GameWon, GameOver } from "/static/gameover.js"
+
 class ExampleScene extends Phaser.Scene {
     ball;
     paddle;
@@ -13,10 +15,6 @@ class ExampleScene extends Phaser.Scene {
         this.load.image("ball", "/static/images/breakout_ball_15x15.svg");
         this.load.image("paddle", "/static/images/breakout_paddle_80x10.png");
         this.load.image("brick", "/static/images/breakout_brick_50x20.png");
-        this.load.spritesheet("wobble", "/static/images/wobble.png", {
-            frameWidth: 20,
-            frameHeight: 20,
-        });
         this.load.spritesheet("button", "/static/images/button.png", {
             frameWidth: 120,
             frameHeight: 40,
@@ -28,13 +26,6 @@ class ExampleScene extends Phaser.Scene {
             this.scale.height - 25,
             "ball",
         );
-        this.ball.anims.create({
-            key: "wobble",
-            frameRate: 24,
-            frames: this.anims.generateFrameNumbers("wobble", {
-                frames: [0, 1, 0, 2, 0, 1, 0, 2, 0],
-            })
-        });
         this.physics.add.existing(this.ball);
         this.ball.body.setCollideWorldBounds(true, 1, 1);
         this.ball.body.setBounce(1);
@@ -149,13 +140,11 @@ class ExampleScene extends Phaser.Scene {
         }
     }
     hitPaddle(ball, paddle) {
-        // this.ball.anims.play("wobble");
         if (ball.x < paddle.x - paddle.displayWidth / 4 || ball.x > paddle.x + paddle.displayWidth / 4) {
             this.ball.body.velocity.x = -5 * (paddle.x - ball.x);
         }
     }
     hitBrick(ball, brick) {
-        // this.ball.anims.play("wobble");
         const destroyTween = this.tweens.add({
             targets: brick,
             ease: "Linear",
@@ -188,7 +177,11 @@ class ExampleScene extends Phaser.Scene {
                 this,
             );
         } else {
-            location.reload();
+            const modal = document.getElementById("end-game-modal");
+            modal.innerHTML = "";
+            modal.showModal();
+            modal.appendChild(new GameOver());
+            this.pause();
         }
     }
     startGame() {
@@ -213,5 +206,6 @@ const config = {
         default: "arcade",
     },
 };
+
 
 const game = new Phaser.Game(config);
