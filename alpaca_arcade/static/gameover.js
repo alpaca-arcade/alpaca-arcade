@@ -1,10 +1,11 @@
 export class GameWon extends HTMLElement {
     constructor(score, difficulty, hcaptcha) {
         super()
-        this.game = "minesweeper";
+        const currentURLParams = new URLSearchParams(window.location.search);
+        this.game = currentURLParams.get("game");
         this.gameScore = score;
-		switch (difficulty) {
-			case "easy":
+        switch (difficulty) {
+            case "easy":
 			    this.gameDifficulty =  0;
                 break;
             case "medium":
@@ -34,14 +35,14 @@ export class GameWon extends HTMLElement {
         this.appendChild(statusMessage);
         this.statusMessage = statusMessage;
         if (this.gameDifficulty == 3) {
-            this.addCloseButton("I <3 Bootsweeper!");
+            this.addCloseButton(`I <3 ${this.game}!`);
         } else {
             this.checkHighScores();
         }
     }
     async checkHighScores() {
         this.statusMessage.textContent = "Checking high scores...";
-        const url = `/scores/?game=minesweeper&difficulty=${this.gameDifficulty}`;
+        const url = `/scores/?game=${this.game}&difficulty=${this.gameDifficulty}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -188,13 +189,24 @@ customElements.define("game-won", GameWon);
 export class GameOver extends HTMLElement {
     constructor() {
         super()
+        const currentURLParams = new URLSearchParams(window.location.search);
+        this.game = currentURLParams.get("game");
     }
     connectedCallback() {
         const header = document.createElement("h2");
         header.textContent = "Game Over";
         this.appendChild(header);
         const message = document.createElement("p");
-        message.textContent = "You stepped on a mine. WOOPS!";
+		switch (this.game) {
+            case "minesweeper":
+                message.textContent = "You stepped on a mine. WOOPS!";
+                break;
+            case "breakout":
+                message.textContent = "You lost all your lives. DAMN!";
+                break;
+            default:
+                console.error("Something went wrong.");
+        }
         this.appendChild(message);
         this.addCloseButton("Oh no!");
     }

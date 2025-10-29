@@ -1,6 +1,6 @@
 import { GameWon, GameOver } from "/static/gameover.js"
 
-class ExampleScene extends Phaser.Scene {
+class BreakoutScene extends Phaser.Scene {
     ball;
     paddle;
     bricks;
@@ -181,7 +181,7 @@ class ExampleScene extends Phaser.Scene {
             modal.innerHTML = "";
             modal.showModal();
             modal.appendChild(new GameOver());
-            this.pause();
+            this.scene.pause();
         }
     }
     startGame() {
@@ -195,7 +195,7 @@ const config = {
     type: Phaser.CANVAS,
     width: 800,
     height: 600,
-    scene: ExampleScene,
+    scene: BreakoutScene,
 	parent: document.querySelector(".breakout-container"),
     scale: {
         mode: Phaser.Scale.FIT,
