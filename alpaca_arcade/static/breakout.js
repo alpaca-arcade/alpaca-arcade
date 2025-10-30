@@ -118,7 +118,7 @@ class BreakoutScene extends Phaser.Scene {
                 col: 15,
             },
             offset: {
-                top: 50,
+                top: 40,
                 left: 50,
             },
             padding: 0,
