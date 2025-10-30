@@ -17,7 +17,29 @@ body {
     padding: 50px 0;
 }
 
-.breakout-container canvas {
+.game-container__breakout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.game-container__breakout-metrics {
+    width: 100%;
+    padding: 0 50px;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-container__phaser-breakout {
+    width: 60vw;
+    height: 60vh;
+}
+
+.game-container__phaser-breakout canvas {
     border: 5px double var(--theme-light);
     border-radius: 15px;
     box-shadow: 0px 20px 200px var(--theme-light);
@@ -156,6 +178,11 @@ body {
     font-size: 20px;
 }
 
+.game-metric {
+    font-size: 20px;
+    margin: 0;
+}
+
 .radio-button {
     appearance: none;
     -webkit-appearance: none;
@@ -168,9 +195,4 @@ body {
 
 .radio-button:checked {
     background-color: var(--theme-light);
-}
-
-.breakout-container {
-    width: 60vw;
-    height: 60vh;
 }

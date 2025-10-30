@@ -5,6 +5,7 @@ class BreakoutScene extends Phaser.Scene {
     paddle;
     bricks;
     scoreText;
+    scoreTextNew;
     score = 0;
     lives = 3;
     livesText;
@@ -41,6 +42,8 @@ class BreakoutScene extends Phaser.Scene {
         this.initBricks();
         const textStyle = { font: "18px Arial", fill: "#0095dd" };
         this.scoreText = this.add.text(5, 5, "Points: 0", textStyle);
+        this.scoreTextNew = document.querySelector(".game-metric.game-metric__points > .game-metric__value");
+        this.scoreTextNew.textContent = "0";
         this.livesText = this.add.text(
             this.scale.width - 5,
             5,
@@ -161,6 +164,7 @@ class BreakoutScene extends Phaser.Scene {
         destroyTween.play();
         this.score += 10;
         this.scoreText.setText(`Points: ${this.score}`);
+        this.scoreTextNew.textContent = `${this.score}`
     }
     ballLeaveScreen() {
         this.lives--;
@@ -196,7 +200,7 @@ const config = {
     width: 800,
     height: 600,
     scene: BreakoutScene,
-	parent: document.querySelector(".breakout-container"),
+	parent: document.querySelector(".game-container__phaser-breakout"),
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,

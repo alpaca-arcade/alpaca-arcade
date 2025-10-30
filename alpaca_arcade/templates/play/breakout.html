@@ -16,7 +16,12 @@
         <img src="/static/images/logo_mini.svg" alt="Alpaca Arcade logo mini" width=80 height=80>
     </a>
     <a class="game-button back-button" href="{{ url_for("overview.index", game="breakout") }}">Back to Leaderboard</a>
-    <div class="breakout-container">
+    <div class="game-container__breakout">
+        <div class="game-container__breakout-metrics">
+            <p class="game-metric game-metric__points">Points: <span class="game-metric__value"></span></p>
+            <p class="game-metric game-metric__lives">Lives: <span class="game-metric__value"></span></p>
+        </div>
+        <div class="game-container__phaser-breakout"></div>
     </div>
 </div>
 {% endblock %}
