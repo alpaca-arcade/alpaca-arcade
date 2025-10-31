@@ -187,10 +187,11 @@ customElements.define("game-won", GameWon);
 
 
 export class GameOver extends HTMLElement {
-    constructor() {
+    constructor(phaser=null) {
         super()
         const currentURLParams = new URLSearchParams(window.location.search);
         this.game = currentURLParams.get("game");
+        this.phaser = phaser;
     }
     connectedCallback() {
         const header = document.createElement("h2");
@@ -217,6 +218,13 @@ export class GameOver extends HTMLElement {
         closeButton.classList.add("dialog-button");
         closeButton.addEventListener("click", (event) => {
             document.querySelector("#end-game-modal").close();
+            switch (this.game) {
+                case "breakout":
+                    this.phaser.scene.restart();
+                    break;
+                default:
+                    ;
+            }
             this.remove();
         });
         this.appendChild(closeButton);

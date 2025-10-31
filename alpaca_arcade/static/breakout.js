@@ -176,7 +176,7 @@ class BreakoutScene extends Phaser.Scene {
             const modal = document.getElementById("end-game-modal");
             modal.innerHTML = "";
             modal.showModal();
-            modal.appendChild(new GameOver());
+            modal.appendChild(new GameOver(this));
             this.scene.pause();
         }
     }
