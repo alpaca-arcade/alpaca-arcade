@@ -168,7 +168,7 @@ class BreakoutScene extends Phaser.Scene {
                 "pointerdown",
                 () => {
                     this.lifeLostText.visible = false;
-                    this.ball.body.setVelocity(250, -250);
+                    this.ball.body.setVelocity(0, -250);
                 },
                 this,
             );
@@ -182,7 +182,7 @@ class BreakoutScene extends Phaser.Scene {
     }
     startGame() {
         this.startButton.destroy();
-        this.ball.body.setVelocity(250, -250);
+        this.ball.body.setVelocity(0, -250);
         this.playing = true;
     }
 }
