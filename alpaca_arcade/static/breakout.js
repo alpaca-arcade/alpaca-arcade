@@ -15,7 +15,7 @@ class BreakoutScene extends Phaser.Scene {
         this.load.image("ball", "/static/images/breakout_ball_15x15.svg");
         this.load.image("paddle", "/static/images/breakout_paddle_80x10.png");
         this.load.image("brick", "/static/images/breakout_brick_50x20.png");
-        this.load.spritesheet("button", "/static/images/button.png", {
+        this.load.spritesheet("button", "/static/images/spritesheet_startbutton_120x120.png", {
             frameWidth: 120,
             frameHeight: 40,
         });
