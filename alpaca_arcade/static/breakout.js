@@ -9,8 +9,10 @@ class BreakoutScene extends Phaser.Scene {
     lives = 3;
     livesText;
     lifeLostText;
+    aiming = false;
     playing = false;
     startButton;
+    startText;
     preload() {
         this.load.image("ball", "/static/images/breakout_ball_15x15.svg");
         this.load.image("paddle", "/static/images/breakout_paddle_80x10.png");
@@ -83,10 +85,18 @@ class BreakoutScene extends Phaser.Scene {
         this.startButton.on(
             "pointerup",
             () => {
-                this.startGame();
+                this.aimBall();
             },
             this,
         );
+        this.startText = this.add.text(
+            this.scale.width * 0.5,
+            this.scale.height * 0.5,
+            "Click anywhere to start",
+            textStyle,
+        );
+        this.startText.setOrigin(0.5, 0.5);
+        this.startText.visible = false;
     }
     update() {
         this.physics.collide(this.ball, this.paddle, (ball, paddle) => 
@@ -95,6 +105,10 @@ class BreakoutScene extends Phaser.Scene {
         this.physics.collide(this.ball, this.bricks, (ball, brick) => 
             this.hitBrick(ball, brick),
         );
+        if (this.aiming) {
+            this.paddle.x = this.input.x || this.scale.width * 0.5;
+            this.ball.x = this.input.x || this.scale.width * 0.5;
+        }
         if (this.playing) {
             this.paddle.x = this.input.x || this.scale.width * 0.5;
         }
@@ -180,8 +194,21 @@ class BreakoutScene extends Phaser.Scene {
             this.scene.pause();
         }
     }
-    startGame() {
+    aimBall() {
         this.startButton.destroy();
+        this.startText.visible = true;
+        this.aiming = true;
+        this.input.once(
+            "pointerdown",
+            () => {
+                this.startText.visible = false;
+                this.startGame()
+            },
+            this,
+        );
+    }
+    startGame() {
+        this.aiming = false;
         this.ball.body.setVelocity(0, -250);
         this.playing = true;
     }
