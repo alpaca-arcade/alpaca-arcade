@@ -177,11 +177,13 @@ class BreakoutScene extends Phaser.Scene {
         if (this.lives > 0) {
             this.livesText.textContent = this.lives;
             this.lifeLostText.visible = true;
+            this.aiming = true;
             this.ball.body.reset(this.scale.width * 0.5, this.scale.height - 25);
             this.input.once(
                 "pointerdown",
                 () => {
                     this.lifeLostText.visible = false;
+                    this.aiming = false;
                     this.ball.body.setVelocity(0, -250);
                 },
                 this,
@@ -232,3 +234,6 @@ const config = {
 
 
 const game = new Phaser.Game(config);
+
+// TODO
+// - the paddle hit change in angle space in middle is too wide.
