@@ -237,3 +237,4 @@ const game = new Phaser.Game(config);
 
 // TODO
 // - the paddle hit change in angle space in middle is too wide.
+// - the life lost text needs a change of color.
