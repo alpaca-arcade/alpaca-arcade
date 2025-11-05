@@ -5,8 +5,8 @@ class BreakoutScene extends Phaser.Scene {
     paddle;
     bricks;
     scoreText;
-    score = 0;
-    lives = 3;
+    score;
+    lives;
     livesText;
     lifeLostText;
     aiming = false;
@@ -23,6 +23,8 @@ class BreakoutScene extends Phaser.Scene {
         });
     }
     create() {
+        this.score = 0;
+        this.lives = 3;
         this.ball = this.add.sprite(
             this.scale.width * 0.5,
             this.scale.height - 25,
