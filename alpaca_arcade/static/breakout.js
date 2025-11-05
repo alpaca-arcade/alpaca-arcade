@@ -41,7 +41,7 @@ class BreakoutScene extends Phaser.Scene {
         this.paddle.body.setImmovable(true);
         this.physics.world.checkCollision.down = false;
         this.initBricks();
-        const textStyle = { font: "18px Arial", fill: "#0095dd" };
+        const textStyle = { font: "24px Bitcount", fill: "#54B435" };
         this.scoreText = document.querySelector(".game-metric.game-metric__points > .game-metric__value");
         this.scoreText.textContent = "0";
         this.livesText = document.querySelector(".game-metric.game-metric__lives > .game-metric__value");
