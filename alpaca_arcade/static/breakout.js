@@ -152,7 +152,7 @@ class BreakoutScene extends Phaser.Scene {
         }
     }
     hitPaddle(ball, paddle) {
-        if (ball.x < paddle.x - paddle.displayWidth / 4 || ball.x > paddle.x + paddle.displayWidth / 4) {
+        if (ball.x < paddle.x - paddle.displayWidth / 10 || ball.x > paddle.x + paddle.displayWidth / 10) {
             this.ball.body.velocity.x = -5 * (paddle.x - ball.x);
         }
     }
@@ -238,5 +238,3 @@ const config = {
 const game = new Phaser.Game(config);
 
 // TODO
-// - the paddle hit change in angle space in middle is too wide.
-// - the life lost text needs a change of color.
