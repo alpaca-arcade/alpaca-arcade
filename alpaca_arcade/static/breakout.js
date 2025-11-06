@@ -99,6 +99,9 @@ class BreakoutScene extends Phaser.Scene {
         );
         this.startText.setOrigin(0.5, 0.5);
         this.startText.visible = false;
+        this.input.keyboard.on("keydown-W", (event) => {
+            this.bricks.clear(true);
+        });
     }
     update() {
         this.physics.collide(this.ball, this.paddle, (ball, paddle) => 
@@ -237,4 +240,6 @@ const config = {
 
 const game = new Phaser.Game(config);
 
+
 // TODO
+// - Game won flow
