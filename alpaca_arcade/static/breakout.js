@@ -125,7 +125,11 @@ class BreakoutScene extends Phaser.Scene {
             this.ballLeaveScreen();
         }
         if (this.bricks.countActive() === 0) {
-            location.reload();
+            const modal = document.getElementById("end-game-modal");
+            modal.innerHTML = "";
+            modal.showModal();
+            modal.appendChild(new GameWon(this.score, null, hcaptcha));
+            this.scene.pause();
         }
     }
     initBricks() {

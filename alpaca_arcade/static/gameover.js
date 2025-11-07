@@ -3,6 +3,18 @@ export class GameWon extends HTMLElement {
         super()
         const currentURLParams = new URLSearchParams(window.location.search);
         this.game = currentURLParams.get("game");
+        switch (this.game) {
+            case "minesweeper":
+                this.goalName = "time";
+                this.goalUnit = "seconds";
+                break;
+            case "breakout":
+                this.goalName = "score";
+                this.goalUnit = "points";
+                break
+            default:
+                console.error("Config missing for goal parameters.");
+        }
         this.gameScore = score;
         switch (difficulty) {
             case "easy":
@@ -17,6 +29,9 @@ export class GameWon extends HTMLElement {
             case "custom":
                 this.gameDifficulty = 3;
                 break;
+            case null:
+                this.gameDifficulty = null;
+                break;
             default:
                 console.error("Something went wrong.");
         }
@@ -28,7 +43,7 @@ export class GameWon extends HTMLElement {
         this.headerMessage = header;
         this.appendChild(header)
         const scoreDisplay = document.createElement("p");
-        scoreDisplay.textContent = `Your time: ${this.gameScore} seconds`;
+        scoreDisplay.textContent = `Your ${this.goalName}: ${this.gameScore} ${this.goalUnit}`;
         this.scoreDisplay = scoreDisplay;
         this.appendChild(scoreDisplay);
         const statusMessage = document.createElement("p");
