@@ -32,9 +32,9 @@ def index():
     game = request.args.get("game", "")
     difficulty = request.args.get("difficulty", "")
     error = None
-    if game not in ["minesweeper"]:
+    if game not in ["minesweeper", "breakout"]:
         error = "invalid or missing game"
-    if difficulty not in ["0", "1", "2"]:
+    if difficulty not in ["0", "1", "2", "4"]:
         error = "invalid or missing difficulty"
     if error:
         return error, 400
@@ -100,7 +100,7 @@ def get_scores(game, difficulty):
     scores = [
         {
             "name": score["name"],
-            "time": score["score"],
+            "score": score["score"],
         }
         for score in scores
     ]

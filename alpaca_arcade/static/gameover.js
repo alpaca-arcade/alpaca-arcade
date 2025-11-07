@@ -30,7 +30,7 @@ export class GameWon extends HTMLElement {
                 this.gameDifficulty = 3;
                 break;
             case null:
-                this.gameDifficulty = null;
+                this.gameDifficulty = 4;
                 break;
             default:
                 console.error("Something went wrong.");
@@ -66,7 +66,7 @@ export class GameWon extends HTMLElement {
                 throw new Error(`Response status: ${response.status}`);
             }
             const scores = await response.json();
-            scores.sort((a, b) => a.time - b.time);
+            scores.sort((a, b) => a.score - b.score);
             if (scores.length > 0) {
                 const longest = scores.at(-1).time;
                 if (scores.length < 20 || this.gameScore < longest) {
