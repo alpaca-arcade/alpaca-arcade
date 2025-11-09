@@ -117,8 +117,8 @@ export class GameWon extends HTMLElement {
         this.hcaptcha.render(
             "hcaptcha",
             {
-                sitekey: hcaptchaSitekey,
-                theme: "dark",
+                "sitekey": hcaptchaSitekey,
+                "theme": "dark",
             }
         );
         form.addEventListener("submit", (event) => {

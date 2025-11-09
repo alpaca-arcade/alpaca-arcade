@@ -127,7 +127,7 @@ class BreakoutScene extends Phaser.Scene {
         if (this.bricks.countActive() === 0) {
             const modal = document.getElementById("end-game-modal");
             modal.innerHTML = "";
-            modal.showModal();
+            modal.show();
             modal.appendChild(new GameWon(this.score, null, hcaptcha));
             this.scene.pause();
         }
@@ -200,7 +200,7 @@ class BreakoutScene extends Phaser.Scene {
         } else {
             const modal = document.getElementById("end-game-modal");
             modal.innerHTML = "";
-            modal.showModal();
+            modal.show();
             modal.appendChild(new GameOver(this));
             this.scene.pause();
         }
