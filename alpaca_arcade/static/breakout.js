@@ -9,8 +9,8 @@ class BreakoutScene extends Phaser.Scene {
     lives;
     livesText;
     lifeLostText;
-    aiming = false;
-    playing = false;
+    aiming;
+    playingfalse;
     startButton;
     startText;
     preload() {
@@ -23,6 +23,8 @@ class BreakoutScene extends Phaser.Scene {
         });
     }
     create() {
+        this.aiming = false;
+        this.playing = false;
         this.score = 0;
         this.lives = 3;
         this.ball = this.add.sprite(
@@ -249,6 +251,5 @@ const game = new Phaser.Game(config);
 
 // TODO
 // - Game won flow
-//    - paddle shlouldnt follow mouse after game resets after gameover
 // - Leaderboard
 // - Fix status message position for breakout high score error form (e.g. captcha failed)
