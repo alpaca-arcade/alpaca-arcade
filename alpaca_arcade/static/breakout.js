@@ -181,7 +181,7 @@ class BreakoutScene extends Phaser.Scene {
             },
         });
         destroyTween.play();
-        this.score += 10;
+        this.score += 1;
         this.scoreText.textContent = `${this.score}`
     }
     ballLeaveScreen() {
@@ -253,3 +253,4 @@ const game = new Phaser.Game(config);
 // - Game won flow
 // - Leaderboard
 // - Fix status message position for breakout high score error form (e.g. captcha failed)
+// - Bounce control should only happen if it's coming from the "other" direction.
