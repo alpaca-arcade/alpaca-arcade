@@ -126,9 +126,10 @@ class BreakoutScene extends Phaser.Scene {
         }
         if (this.bricks.countActive() === 0) {
             const modal = document.getElementById("end-game-modal");
+            modal.classList.add("breakout-modal");
             modal.innerHTML = "";
             modal.show();
-            modal.appendChild(new GameWon(this.score, null, hcaptcha));
+            modal.appendChild(new GameWon(this.score, null, hcaptcha, this));
             this.scene.pause();
         }
     }
@@ -199,6 +200,7 @@ class BreakoutScene extends Phaser.Scene {
             );
         } else {
             const modal = document.getElementById("end-game-modal");
+            modal.classList.add("breakout-modal");
             modal.innerHTML = "";
             modal.show();
             modal.appendChild(new GameOver(this));
@@ -247,3 +249,6 @@ const game = new Phaser.Game(config);
 
 // TODO
 // - Game won flow
+//    - paddle shlouldnt follow mouse after game resets after gameover
+// - Leaderboard
+// - Fix status message position for breakout high score error form (e.g. captcha failed)

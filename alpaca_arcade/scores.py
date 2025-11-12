@@ -50,9 +50,9 @@ def new():
     score = request.json["score"]
     error = None
 
-    if game not in ["minesweeper"]:
+    if game not in ["minesweeper", "breakout"]:
         error = "invalid or missing game"
-    if difficulty not in [0, 1, 2]:
+    if difficulty not in [0, 1, 2, 4]:
         error = "invalid or missing difficulty"
     if len(name) > 3 or not name.isalpha():
         error = "invalid name"

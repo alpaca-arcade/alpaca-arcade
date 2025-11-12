@@ -45,6 +45,12 @@ body {
     box-shadow: 0px 20px 200px var(--theme-light);
 }
 
+.breakout-modal {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+}
+
 .board {
   display: grid;
   gap: 2px;

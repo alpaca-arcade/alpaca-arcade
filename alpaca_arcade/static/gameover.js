@@ -1,6 +1,7 @@
 export class GameWon extends HTMLElement {
-    constructor(score, difficulty, hcaptcha) {
+    constructor(score, difficulty, hcaptcha, phaser=null) {
         super()
+        this.phaser = phaser;
         const currentURLParams = new URLSearchParams(window.location.search);
         this.game = currentURLParams.get("game");
         switch (this.game) {
@@ -193,6 +194,13 @@ export class GameWon extends HTMLElement {
         closeButton.type = "button";
         closeButton.addEventListener("click", (event) => {
             document.querySelector("#end-game-modal").close();
+            switch (this.game) {
+                case "breakout":
+                    this.phaser.scene.restart();
+                    break;
+                default:
+                    ;
+            }
             this.remove();
         });
         this.appendChild(closeButton);
